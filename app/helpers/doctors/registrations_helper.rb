@@ -1,0 +1,2 @@
+module Doctors::RegistrationsHelper
+end
