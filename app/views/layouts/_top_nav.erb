@@ -45,12 +45,12 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Doctor
+            Patients
           </a>
           <ul class="dropdown-menu dropdown-menu-dark">
-            <li><%= link_to 'Login', [:patients, :sessions], class: "nav-link" %></li>
-            <li><%= link_to 'Sign Up', [:patients, :registrations], class: "nav-link" %></li>
-          </ul>
+          <li><%= link_to 'Login', new_patients_session_path, class: "nav-link" %></li>
+          <li><%= link_to 'Sign Up', new_patients_registration_path, class: "nav-link" %></li>
+        </ul>
         </li>
       </ul>
     </div>
