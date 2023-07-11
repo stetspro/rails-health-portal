@@ -1,8 +1,36 @@
 <h1>Patient Dashboard</h1>
-
 <div>
   <h2><%= @patient.first_name %> <%= @patient.last_name %></h2>
   <p>Email: <%= @patient.email %></p>
   <p>Address: <%= @patient.address %></p>
-  <!-- Add more fields as necessary -->
+
+  <h2>Appointments</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Doctor</th>
+        <th>Appointment Date</th>
+        <th>Appointment Time</th>
+        <!-- add other columns as needed -->
+      </tr>
+    </thead>
+
+    <tbody>
+      <% if @appointments.present? %>
+        <% @appointments.each do |appointment| %>
+          <tr>
+            <td><%= appointment.doctor.name %></td>
+            <td><%= appointment.appointment_date %></td>
+            <td><%= appointment.appointment_time %></td>
+            <!-- fill in other columns as needed -->
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="3">No Appointments Found</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

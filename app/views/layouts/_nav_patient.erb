@@ -2,7 +2,7 @@
 <!-- Wrap appointments and medication options in a div for styling and centering -->
 <div class="patient-links">
   <ul class="nav-item">
-    <a class="nav-link patient-link" href="<%= patient_appointments_path(current_patient) %>">Appointment</a>
+    <a class="nav-link patient-link" href="<%= new_patient_appointment_path(current_patient) %>">Appointment</a>
   </ul>
   <ul class="nav-item">
     <a class="nav-link patient-link" href="<%= patient_medications_path(current_patient) %>">Medication</a>
