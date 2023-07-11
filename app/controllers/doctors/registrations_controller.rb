@@ -1,4 +1,3 @@
-# app/controllers/doctors/registrations_controller.rb
 class Doctors::RegistrationsController < ApplicationController
   def new
     @doctor = Doctor.new
@@ -8,7 +7,7 @@ class Doctors::RegistrationsController < ApplicationController
     @doctor = Doctor.new(doctor_params)
     if @doctor.save
       session[:doctor_id] = @doctor.id
-      redirect_to @doctor
+      redirect_to daily_patients_doctor_path(@doctor)
     else
       render 'new'
     end

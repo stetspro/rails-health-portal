@@ -1,4 +1,3 @@
-# app/controllers/patients/registrations_controller.rb
 class Patients::RegistrationsController < ApplicationController
   def new
     @patient = Patient.new
@@ -8,7 +7,7 @@ class Patients::RegistrationsController < ApplicationController
     @patient = Patient.new(patient_params)
     if @patient.save
       session[:patient_id] = @patient.id
-      redirect_to dashboard_path # Redirects to the index action after registration
+      redirect_to dashboard_path 
     else
       render 'new'
     end

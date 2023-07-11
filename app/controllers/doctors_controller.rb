@@ -14,10 +14,15 @@ class DoctorsController < ApplicationController
   def create
     @doctor = Doctor.new(doctor_params)
     if @doctor.save
-      redirect_to @doctor
+      redirect_to daily_patients_doctor_path(@doctor), notice: 'Doctor was successfully created.'
     else
       render :new
     end
+  end
+
+  def daily_patients
+    @doctor = Doctor.includes(appointments: :patient).find(params[:id])
+    @appointments = @doctor.appointments.where(appointment_date: Date.today).order(:appointment_time)
   end
 
   def edit

@@ -8,6 +8,7 @@ class PatientsController < ApplicationController
 
   def dashboard
     @patient = current_patient
+    @appointments = current_patient.appointments
   end
 
   def show

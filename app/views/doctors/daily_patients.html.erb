@@ -1,0 +1,20 @@
+<h1>Doctor <%= @doctor.name %>'s Daily Patients</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Appointment Time</th>
+      <th>Patient Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @appointments.each do |appointment| %>
+    <tr>
+      <td><%= appointment.appointment_time.strftime("%H:%M") %></td>
+      <td><%= appointment.patient.first_name %> <%= appointment.patient.last_name %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
