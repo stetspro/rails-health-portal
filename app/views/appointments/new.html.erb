@@ -1,0 +1,7 @@
+<!-- app/views/appointments/new.html.erb -->
+
+<h1>Schedule a new appointment for <%= @patient.name %></h1>
+
+<%= form_for([@patient, @appointment]) do |f| %>
+  <!-- Your form fields here -->
+<% end %>

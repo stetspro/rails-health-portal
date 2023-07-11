@@ -2,22 +2,11 @@
   <div class="container">
     <a class="navbar-brand" href="<%= root_path %>">CanPulse</a>
     <div class="navbar-nav">
-      <% if session[:patient_id] || session[:doctor_id] %> 
-      <!-- User is logged in, show logout button -->
-        <ul class="nav-item dropdown">
-          <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-            User
-          </a>
-          <ul class="dropdown-menu">
-            <% if session[:patient_id] %>
-              <li><%= link_to 'Logout', patients_logout_path, method: :delete, class: "dropdown-item" %></li>
-            <% else %>
-              <li><%= link_to 'Logout', doctors_logout_path, method: :delete, class: "dropdown-item" %></li>
-            <% end %>
-          </ul>
-        </ul>
+      <% if session[:patient_id] %>
+        <%= render partial: 'layouts/nav_patient' %>
+      <% elsif session[:doctor_id] %>
+        <%= render partial: 'layouts/nav_doctor' %>
       <% else %>
-      <!-- User is not logged in, show login and sign up options -->
         <ul class="nav-item dropdown">
           <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
             Patients
