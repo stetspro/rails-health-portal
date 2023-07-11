@@ -1,6 +1,13 @@
 class PatientsController < ApplicationController
+  before_action :authenticate_patient!
+  before_action :restrict_patient!, only: [:edit, :update, :destroy]
+
   def index
     @patients = Patient.all
+  end
+
+  def dashboard
+    @patient = current_patient
   end
 
   def show
@@ -40,7 +47,7 @@ class PatientsController < ApplicationController
   end
 
   private
-  def patient_params
-    params.require(:patient).permit(:name, :date_of_birth, :email, :address)
+   def patient_params
+    params.require(:patient).permit(:first_name, :last_name, :email, :date_of_birth, :address, :password, :password_confirmation)
   end
 end

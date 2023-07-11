@@ -23,4 +23,5 @@ Rails.application.routes.draw do
     resources :patients, only: [:new, :create, :show]
     resources :appointments, only: [:index, :create]
   end
+  get 'dashboard', to: 'patients#dashboard', as: 'dashboard'
 end
