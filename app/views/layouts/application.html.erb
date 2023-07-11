@@ -12,9 +12,9 @@
 
   <body>
   <%= render 'layouts/top_nav' %>
-    <main>  
-      <%= yield %>
-    </main>
+  <main class="main-content">  
+    <%= yield %>
+  </main>
 
   <%= yield :end_of_body %>
 
@@ -24,7 +24,6 @@
       <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Help</a></li>
       <li class="nav-item"><a href="/about" class="nav-link px-2 text-muted">About</a></li>
     </ul>
-    <p class="text-center text-muted">© 2021 Jungle, Inc</p>
   </footer>
 </body>
 </html>

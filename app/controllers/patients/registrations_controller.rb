@@ -8,7 +8,7 @@ class Patients::RegistrationsController < ApplicationController
     @patient = Patient.new(patient_params)
     if @patient.save
       session[:patient_id] = @patient.id
-      redirect_to @patient
+      redirect_to patients_path # Redirects to the index action after registration
     else
       render 'new'
     end
@@ -17,6 +17,6 @@ class Patients::RegistrationsController < ApplicationController
   private
 
   def patient_params
-    params.require(:patient).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+    params.require(:patient).permit(:first_name, :last_name, :email, :date_of_birth, :address, :password, :password_confirmation)
   end
 end
