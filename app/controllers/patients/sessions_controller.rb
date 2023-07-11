@@ -7,7 +7,7 @@ class Patients::SessionsController < ApplicationController
     patient = Patient.find_by(email: params[:session][:email].downcase)
     if patient && patient.authenticate(params[:session][:password])
       session[:patient_id] = patient.id
-      redirect_to patient
+      redirect_to patients_path
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
