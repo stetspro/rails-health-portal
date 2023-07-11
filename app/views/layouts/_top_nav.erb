@@ -2,24 +2,41 @@
   <div class="container">
     <a class="navbar-brand" href="<%= root_path %>">CanPulse</a>
     <div class="navbar-nav">
-      <ul class="nav-item dropdown">
-        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-          Patients
-        </a>
-        <ul class="dropdown-menu">
-          <li><%= link_to 'Login', new_patients_session_path, class: "dropdown-item" %></li>
-          <li><%= link_to 'Sign Up', new_patients_registration_path, class: "dropdown-item" %></li>
+      <% if session[:patient_id] || session[:doctor_id] %> 
+      <!-- User is logged in, show logout button -->
+        <ul class="nav-item dropdown">
+          <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            User
+          </a>
+          <ul class="dropdown-menu">
+            <% if session[:patient_id] %>
+              <li><%= link_to 'Logout', patients_logout_path, method: :delete, class: "dropdown-item" %></li>
+            <% else %>
+              <li><%= link_to 'Logout', doctors_logout_path, method: :delete, class: "dropdown-item" %></li>
+            <% end %>
+          </ul>
         </ul>
-      </ul>
-      <ul class="nav-item dropdown">
-        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-          Doctors
-        </a>
-        <ul class="dropdown-menu">
-          <li><%= link_to 'Login', new_doctors_session_path, class: "dropdown-item" %></li>
-          <li><%= link_to 'Sign Up', new_doctors_registration_path, class: "dropdown-item" %></li>
+      <% else %>
+      <!-- User is not logged in, show login and sign up options -->
+        <ul class="nav-item dropdown">
+          <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Patients
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to 'Login', new_patients_session_path, class: "dropdown-item" %></li>
+            <li><%= link_to 'Sign Up', new_patients_registration_path, class: "dropdown-item" %></li>
+          </ul>
         </ul>
-      </ul>
+        <ul class="nav-item dropdown">
+          <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Doctors
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to 'Login', new_doctors_session_path, class: "dropdown-item" %></li>
+            <li><%= link_to 'Sign Up', new_doctors_registration_path, class: "dropdown-item" %></li>
+          </ul>
+        </ul>
+      <% end %>
     </div>
   </div>
 </nav>

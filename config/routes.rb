@@ -4,11 +4,13 @@ Rails.application.routes.draw do
   namespace :doctors do
     resources :sessions, only: [:new, :create, :destroy] # for doctors login/logout
     resources :registrations, only: [:new, :create] # for doctors signup
+    delete 'logout', to: 'sessions#destroy', as: 'logout' # added line
   end
   
   namespace :patients do
     resources :sessions, only: [:new, :create, :destroy] # for patients login/logout
     resources :registrations, only: [:new, :create] # for patients signup
+    delete 'logout', to: 'sessions#destroy', as: 'logout' # added line
   end
 
   resources :patients do
