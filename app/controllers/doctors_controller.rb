@@ -24,6 +24,7 @@ class DoctorsController < ApplicationController
     @doctor = Doctor.includes(appointments: :patient).find(params[:id])
     @appointments = @doctor.appointments.where(appointment_date: Date.today).order(:appointment_time)
   end
+  
 
   def edit
     @doctor = Doctor.find(params[:id])
