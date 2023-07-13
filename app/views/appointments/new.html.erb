@@ -4,9 +4,9 @@
 
   <%= f.label :appointment_date, "Choose a date for your appointment:" %>
   <%= f.date_field :appointment_date %>
-  
+
   <%= f.label :appointment_time, "Choose a time for your appointment:" %>
-  <%= f.time_field :appointment_time %>
+  <%= f.select :appointment_time, time_slots, {}, prompt: "Select a time" %>
   
   <%= f.submit "Create Appointment" %>
 <% end %>
