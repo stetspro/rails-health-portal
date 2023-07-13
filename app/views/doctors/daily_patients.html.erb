@@ -1,4 +1,4 @@
-<h1>Doctor <%= @doctor.name %>'s Daily Patients</h1>
+<h1>M.D. <%= @doctor.full_name %>'s Daily Patients</h1>
 
 <table>
   <thead>
@@ -12,9 +12,11 @@
   <tbody>
   <% @appointments.each do |appointment| %>
     <tr>
-      <td><%= appointment.appointment_time.strftime("%H:%M") %></td>
+      <td>
+        <%= appointment.appointment_time.strftime("%H:%M") %> - <%= (appointment.appointment_time + 30.minutes).strftime("%H:%M") %>
+      </td>
       <td><%= appointment.patient.first_name %> <%= appointment.patient.last_name %></td>
     </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
