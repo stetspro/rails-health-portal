@@ -1,6 +1,6 @@
 <nav class="navbar">
   <div class="container">
-  <a class="navbar-brand" href="<%= session[:patient_id] ? dashboard_path : session[:doctor_id] ? daily_patients_doctor_path(@doctor) : root_path %>">CanPulse</a>
+  <a class="navbar-brand" href="<%= session[:patient_id] ? dashboard_path : (session[:doctor_id] ? daily_patients_doctor_path(session[:doctor_id]) : root_path) %>">CanPulse</a>
     <div class="navbar-nav">
       <% if session[:patient_id] %>
         <%= render partial: 'layouts/nav_patient' %>
