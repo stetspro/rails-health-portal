@@ -22,14 +22,25 @@ myCalendar.max(futureDate);
 // Get appointment date input field
 var appointmentDateInput = document.getElementById("appointment-date");
 
+var selectedElement = null;
+// Initialize selectedDate variable
+let selectedDate = null;
+
 myCalendar.onDateClick(function(event, date){
-    // Get today's date
     var now = new Date();
-    now.setHours(0, 0, 0, 0); // Set the time to 00:00:00
+    now.setHours(0, 0, 0, 0);
 
     if(date >= now) {
-        // Format date to 'yyyy-mm-dd' as it's the format that HTML date inputs use
         var formattedDate = date.toISOString().slice(0, 10);
         appointmentDateInput.value = formattedDate;
+        selectedDate = formattedDate;
+
+        // remove chosen class from the previously chosen element
+        if (selectedElement) {
+            selectedElement.classList.remove('jsCalendar-selected');
+        }
+        // get the new chosen element and add the chosen class
+        selectedElement = event.target;
+        selectedElement.classList.add('jsCalendar-selected');
     }
 });
