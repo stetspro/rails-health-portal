@@ -181,9 +181,9 @@ var jsCalendar = (function(){
     JsCalendar.options = {
         language : 'en',
         zeroFill : false,
-        monthFormat : 'month',
+        monthFormat : 'month YYYY',
         dayFormat : 'D',
-        firstDayOfTheWeek : 1,
+        firstDayOfTheWeek : 2,
         navigator : true,
         navigatorPosition : 'both',
         min : false,
@@ -1478,3 +1478,4 @@ var jsCalendar = (function(){
     // Return
     return JsCalendar;
 })();
+module.exports = jsCalendar;
