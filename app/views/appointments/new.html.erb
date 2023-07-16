@@ -4,7 +4,7 @@
 
   <%= f.label :appointment_date, "Choose a date for your appointment:" %>
   <%= f.date_field :appointment_date %>
-
+  <div class="auto-jsCalendar"></div>
   <%= f.label :appointment_time, "Choose a time for your appointment:" %>
   <%= f.select :appointment_time, time_slots, {}, prompt: "Select a time" %>
   
