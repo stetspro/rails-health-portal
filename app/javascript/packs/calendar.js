@@ -23,7 +23,13 @@ myCalendar.max(futureDate);
 var appointmentDateInput = document.getElementById("appointment-date");
 
 myCalendar.onDateClick(function(event, date){
-    // Format date to 'yyyy-mm-dd' as it's the format that HTML date inputs use
-    var formattedDate = date.toISOString().slice(0, 10);
-    appointmentDateInput.value = formattedDate;
+    // Get today's date
+    var now = new Date();
+    now.setHours(0, 0, 0, 0); // Set the time to 00:00:00
+
+    if(date >= now) {
+        // Format date to 'yyyy-mm-dd' as it's the format that HTML date inputs use
+        var formattedDate = date.toISOString().slice(0, 10);
+        appointmentDateInput.value = formattedDate;
+    }
 });
