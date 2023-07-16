@@ -22,7 +22,6 @@ myCalendar.max(futureDate);
 // Get appointment date input field
 var appointmentDateInput = document.getElementById("appointment-date");
 
-var selectedElement = null;
 // Initialize selectedDate variable
 let selectedDate = null;
 
@@ -33,14 +32,23 @@ myCalendar.onDateClick(function(event, date){
     if(date >= now) {
         var formattedDate = date.toISOString().slice(0, 10);
         appointmentDateInput.value = formattedDate;
-        selectedDate = formattedDate;
 
-        // remove chosen class from the previously chosen element
-        if (selectedElement) {
-            selectedElement.classList.remove('jsCalendar-selected');
+        // remove selected class from the previously selected date
+        if (selectedDate) {
+            myCalendar.unselect(selectedDate);
         }
-        // get the new chosen element and add the chosen class
-        selectedElement = event.target;
-        selectedElement.classList.add('jsCalendar-selected');
+
+        // select the new date and add it to selectedDate
+        myCalendar.select(date);
+        selectedDate = date;
+    }
+});
+
+myCalendar.onMonthChange(function(){
+    // If a date is selected, reselect it to highlight
+    if (selectedDate) {
+        if(myCalendar.isSelected(selectedDate)){
+            myCalendar.select(selectedDate);
+        }
     }
 });
