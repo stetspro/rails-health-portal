@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_patient!
-    redirect_to new_patient_session_path unless current_patient
+    redirect_to  new_patients_session_path unless current_patient
   end
 
   def restrict_patient!
