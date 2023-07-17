@@ -1,0 +1,34 @@
+<table>
+  <thead>
+    <tr>
+      <th>Basic Patient Information</th>
+    </tr>
+  </thead>
+</table>
+<table>
+  <tr>
+    <td>First Name:</td>
+    <td><%= @patient.first_name %></td>
+  </tr>
+  <tr>
+    <td>Last Name:</td>
+    <td><%= @patient.last_name %></td>
+  </tr>
+  <tr>
+    <td>Date of Birth:</td>
+    <td><%= @patient.date_of_birth %></td>
+  </tr>
+</table>
+
+<%= form_with(model: @diagnosis, url: patient_diagnoses_path(@patient.id), local: true) do |form| %>
+  <div class="field">
+    <%= form.label :diagnosis_id %>
+    <%= form.collection_select :diagnosis_id, Diagnosis.all, :id, :name %>
+  </div>
+
+  <!-- Add other form fields here -->
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

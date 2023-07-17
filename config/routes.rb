@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     end
     resources :medications, only: [:index, :create]
     resources :diagnoses, only: [:index, :create]
+    resources :patient_diagnoses, only: [:new, :create]
   end
 
   resources :doctors, except: [:show] do
@@ -31,4 +32,7 @@ Rails.application.routes.draw do
   
   get 'dashboard', to: 'patients#dashboard', as: 'dashboard'
   get 'doctors/:id/daily_patients', to: 'doctors#daily_patients', as: 'daily_patients_doctor'
+  post '/diagnosticForm/:patient_id', to: 'patient_diagnoses#create', as: 'diagnostic_form'
+  get '/diagnosticForm/:patient_id/new', to: 'patient_diagnoses#new', as: 'new_patient_diagnosis'
+
 end
