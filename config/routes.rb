@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   resources :patients do
     resources :appointments, only: [:new, :create, :show, :destroy] do
+      resources :patient_diagnoses, only: [:new, :create]
       collection do
         get :choose_time
         post :finalize
@@ -22,7 +23,6 @@ Rails.application.routes.draw do
     end
     resources :medications, only: [:index, :create]
     resources :diagnoses, only: [:index, :create]
-    resources :patient_diagnoses, only: [:new, :create]
   end
 
   resources :doctors, except: [:show] do

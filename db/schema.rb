@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_11_183935) do
+ActiveRecord::Schema.define(version: 2023_07_17_193800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,9 +28,9 @@ ActiveRecord::Schema.define(version: 2023_07_11_183935) do
 
   create_table "diagnoses", force: :cascade do |t|
     t.string "name"
-    t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_chronic", default: false
   end
 
   create_table "doctors", force: :cascade do |t|
@@ -68,9 +68,9 @@ ActiveRecord::Schema.define(version: 2023_07_11_183935) do
   create_table "patient_diagnoses", force: :cascade do |t|
     t.bigint "patient_id", null: false
     t.bigint "diagnosis_id", null: false
-    t.boolean "is_chronic"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "complaint"
     t.index ["diagnosis_id"], name: "index_patient_diagnoses_on_diagnosis_id"
     t.index ["patient_id"], name: "index_patient_diagnoses_on_patient_id"
   end
