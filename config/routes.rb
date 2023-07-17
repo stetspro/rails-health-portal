@@ -14,7 +14,12 @@ Rails.application.routes.draw do
   end
 
   resources :patients do
-    resources :appointments, only: [:new, :create, :show, :destroy]
+    resources :appointments, only: [:new, :create, :show, :destroy] do
+      collection do
+        get :choose_time
+        post :finalize
+      end
+    end
     resources :medications, only: [:index, :create]
     resources :diagnoses, only: [:index, :create]
   end
@@ -23,7 +28,7 @@ Rails.application.routes.draw do
     resources :patients, only: [:new, :create, :show]
     resources :appointments, only: [:index, :create]
   end
+  
   get 'dashboard', to: 'patients#dashboard', as: 'dashboard'
   get 'doctors/:id/daily_patients', to: 'doctors#daily_patients', as: 'daily_patients_doctor'
-
 end

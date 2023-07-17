@@ -1,0 +1,10 @@
+<%= form_for @appointment, url: finalize_patient_appointments_path(@patient) do |f| %>
+  <%= f.hidden_field :doctor_id, value: @doctor.id %>
+  <%= f.hidden_field :appointment_date, value: @appointment_date %>
+
+  <%= f.label :appointment_time, "Choose a time for your appointment:" %>
+  <%= f.select :appointment_time, options_for_select(@available_times.map { |t| [t.to_s + ":00", t] }), {}, prompt: "Select a time" %>
+  
+  <%= f.submit "Create Appointment" %>
+<% end %>
+
