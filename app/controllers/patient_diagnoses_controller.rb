@@ -12,7 +12,7 @@ class PatientDiagnosesController < ApplicationController
 
     if @diagnosis.save
       @diagnosis.update_attribute(:created_at, (@appointment.appointment_date.to_date.to_s + ' ' + @appointment.appointment_time.strftime("%H:%M:%S")).to_datetime.in_time_zone("Eastern Time (US & Canada)"))
-      redirect_to patient_path(@patient), notice: 'Diagnosis was successfully created.'
+      redirect_to daily_patients_doctor_path(doctor), notice: 'Diagnosis was successfully created.'
     else
       render :new
     end
@@ -25,8 +25,7 @@ class PatientDiagnosesController < ApplicationController
     @patient = @appointment.patient
   end
   
-
   def diagnosis_params
-    params.require(:diagnosis).permit(:name, :description, :is_chronic)
+    params.require(:diagnosis).permit(:diagnosis_id, :complaint, :is_chronic)
   end
 end
