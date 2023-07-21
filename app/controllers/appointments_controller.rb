@@ -25,6 +25,29 @@ class AppointmentsController < ApplicationController
   end
 
   def choose_time
+    prepare_appointment
+  end
+  
+  def finalize
+    @patient = current_patient
+    @appointment = @patient.appointments.new(appointment_params)
+    @appointment.patient_id = @patient.id
+    Rails.logger.info @appointment
+    if @appointment.save!
+      # Remove the appointment_date from the session
+      session.delete(:appointment_date)
+      flash[:success] = "Appointment was successfully created."
+      redirect_to dashboard_path
+    else
+      flash.now[:error] = "An error occurred while creating the appointment."
+      prepare_appointment
+      render :choose_time
+    end
+  end
+  
+  private
+
+  def prepare_appointment
     # Fetch the doctor using the ID from params
     @doctor = Doctor.find(params[:doctor_id])
     
@@ -45,43 +68,6 @@ class AppointmentsController < ApplicationController
     # Filter out the times when the doctor already has appointments
     @available_times = @all_times - existing_appointment_times
   end
-  
-  def finalize
-    @patient = current_patient
-    @appointment = @patient.appointments.new(appointment_params)
-    @appointment.patient_id = @patient.id
-    Rails.logger.info @appointment
-    if @appointment.save!
-      # Remove the appointment_date from the session
-      session.delete(:appointment_date)
-      flash[:success] = "Appointment was successfully created."
-      redirect_to dashboard_path
-    else
-      flash.now[:error] = "An error occurred while creating the appointment."
-      # Fetch the doctor using the ID from params
-    @doctor = Doctor.find(params[:appointment][:doctor_id])
-    
-    # Fetch the patient using the ID from params
-    @patient = current_patient
-    
-    # Build an appointment for the patient and doctor
-    @appointment = @patient.appointments.build(doctor: @doctor)
-    
-    # Fetch the date from session and convert it to a date object
-    @appointment_date = Date.parse(session[:appointment_date])
-    
-    # Define the full range of possible appointment times
-    @all_times = (9..12).to_a + (14..20).to_a
-    
-    # Fetch the times when the doctor already has appointments on the chosen date
-    existing_appointment_times = @doctor.appointments.where(appointment_date: @appointment_date).pluck(:appointment_time).map { |time| time.hour }
-    # Filter out the times when the doctor already has appointments
-    @available_times = @all_times - existing_appointment_times
-      render :choose_time
-    end
-  end
-  
-  private
 
   def logged_in_patient
     unless current_patient.present?
