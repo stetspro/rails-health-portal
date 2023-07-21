@@ -12,7 +12,12 @@ class PatientDiagnosesController < ApplicationController
     @patient_diagnosis = @patient.patient_diagnoses.new(patient_diagnosis_params)
     if @patient_diagnosis.save
       result = check_and_send_to_openai(@patient_diagnosis)
-      flash[:openai_suggested_date] = parse_date_from_openai(result)
+      AiScheduler.create(
+        patient: @patient,
+        date: parse_date_from_openai(result),
+        patient_diagnosis: @patient_diagnosis,
+        has_taken_appointment: false
+      )
       redirect_to daily_patients_doctor_path(session[:doctor_id]), notice: 'Patient diagnosis was successfully created.'
     else
       render :new

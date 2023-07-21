@@ -11,8 +11,8 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new
     # Fetch all doctors for the doctor selection dropdown
     @doctors = Doctor.all
-    # Retrieve any suggested date from the flash message
-    @suggested_date = flash[:openai_suggested_date]
+    # Retrieve any suggested date from the OpenAI API
+    @suggested_date = @patient.ai_schedulers.last&.date
     # Define the range of possible appointment times, from 9 to 20, excluding 13
     @all_times = (9..12).to_a + (14..20).to_a
   end
