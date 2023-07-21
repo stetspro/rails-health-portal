@@ -4,7 +4,7 @@ class PatientsController < ApplicationController
 
   def dashboard
     @patient = current_patient
-    @appointments = current_patient.appointments.order(appointment_date: :desc, appointment_time: :desc)
+    @appointments = current_patient.appointments.order(appointment_date: :desc, appointment_time: :desc).limit(5)
   end
 
   private
