@@ -2,10 +2,6 @@ class AppointmentsController < ApplicationController
   before_action :logged_in_patient
   before_action :set_patient, only: [:new, :create, :choose_time]
 
-  def index
-    @appointments = current_patient.appointments
-  end
-
   def new
     @patient = current_patient
     @appointment = Appointment.new
@@ -13,7 +9,6 @@ class AppointmentsController < ApplicationController
     @all_times = (9..12).to_a + (14..20).to_a # all times from 9 to 20, excluding 13
   end
   
-
   def create
     @patient = current_patient
     @doctor = Doctor.find(params[:appointment][:doctor_id])
@@ -27,9 +22,6 @@ class AppointmentsController < ApplicationController
       render :new
     end
   end
-  
-
-  
 
   def choose_time
     # Fetch the doctor using the ID from params

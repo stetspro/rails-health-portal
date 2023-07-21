@@ -1,31 +1,31 @@
 class PatientDiagnosesController < ApplicationController
-  before_action :set_patient, only: [:new, :create]
+
 
   def new
     @appointment = Appointment.find(params[:appointment_id])
-    @diagnosis = @patient.diagnoses.build
+    @patient = Patient.find(params[:patient_id])
+    @patient_diagnosis = PatientDiagnosis.new
+    @doctor = @appointment[:doctor_id]
   end
-
+  
   def create
-    @appointment = Appointment.find(params[:appointment_id])
-    @diagnosis = @patient.diagnoses.build(diagnosis_params)
-
-    if @diagnosis.save
-      @diagnosis.update_attribute(:created_at, (@appointment.appointment_date.to_date.to_s + ' ' + @appointment.appointment_time.strftime("%H:%M:%S")).to_datetime.in_time_zone("Eastern Time (US & Canada)"))
-      redirect_to daily_patients_doctor_path(doctor), notice: 'Diagnosis was successfully created.'
+    @patient = Patient.find(params[:patient_id])
+    @patient_diagnosis = @patient.patient_diagnoses.new(patient_diagnosis_params)
+    if @patient_diagnosis.save
+      redirect_to daily_patients_doctor_path(session[:doctor_id]), notice: 'Diagnosis was successfully created.'
     else
       render :new
     end
   end
+  
 
   private
 
-  def set_patient
+  def set_appointment
     @appointment = Appointment.find(params[:appointment_id])
-    @patient = @appointment.patient
   end
   
-  def diagnosis_params
-    params.require(:diagnosis).permit(:diagnosis_id, :complaint, :is_chronic)
+  def patient_diagnosis_params
+    params.require(:patient_diagnosis).permit(:diagnosis_id, :complaint,:patient_id)
   end
 end
