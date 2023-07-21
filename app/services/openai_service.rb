@@ -5,8 +5,7 @@ class OpenaiService
     today = Date.today
 
     conversation = [
-      {role: "system", content: "You are a helpful assistant that provides medical scheduling advice."},
-       {role: "user", content: "Given that today's date is #{today} and the patient has #{diagnosis.name} with complaints of #{complaint}, please provide a single appointment date considering the patient's history. Your answer must be a single date in the format 'yyyy-mm-dd'.Answer in the least words as possible."}
+       {role: "user", content: "Today is #{today}, patient has #{diagnosis.name} with complaints of #{complaint}, provide an appointment date to the patient.Format:'yyyy-mm-dd'.Least words as possible."}
     ]
 
     client = OpenAI::Client.new
