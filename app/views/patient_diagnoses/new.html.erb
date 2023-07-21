@@ -31,7 +31,6 @@
     <%= form.collection_select :diagnosis_id, Diagnosis.all, :id, :name, {}, {name: 'patient_diagnosis[diagnosis_id]'} %>
   </div>
   <%= form.hidden_field :patient_id, value: @patient.id %>
-  <%= form.hidden_field :doctor_id, value: @doctor.id %>
   <div class="actions">
     <%= form.submit %>
   </div>
