@@ -35,5 +35,6 @@ Rails.application.routes.draw do
   get 'doctors/:id/daily_patients', to: 'doctors#daily_patients', as: 'daily_patients_doctor'
   post '/diagnosticForm/:patient_id', to: 'patient_diagnoses#create', as: 'diagnostic_form'
   get '/diagnosticForm/:patient_id/new', to: 'patient_diagnoses#new', as: 'new_patient_diagnosis'
-
+  get '/diagnosis/:id/scheduler', to: 'patient_diagnoses#scheduler', as: 'scheduler_patient_diagnosis'
+  post '/diagnosis/:id/confirm_schedule', to: 'patient_diagnoses#confirm_schedule', as: 'confirm_schedule_patient_diagnosis'
 end

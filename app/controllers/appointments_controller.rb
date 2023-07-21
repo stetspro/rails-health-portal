@@ -5,23 +5,19 @@ class AppointmentsController < ApplicationController
 
   # Prepare for creating a new appointment
   def new
-    # Fetch the current logged-in patient
     @patient = current_patient
     # Build a new blank appointment for the form
     @appointment = Appointment.new
-    # Fetch all doctors for the doctor selection dropdown
     @doctors = Doctor.all
-    # Retrieve any suggested date from the OpenAI API
-    @suggested_date = @patient.ai_schedulers.last&.date
+    # Retrieve the latest suggested appointment date from the aischeduler table
+    @suggested_date = @patient.ai_schedulers.order(created_at: :desc).first&.date
     # Define the range of possible appointment times, from 9 to 20, excluding 13
     @all_times = (9..12).to_a + (14..20).to_a
   end
   
    # Process the form submission for creating a new appointment
    def create
-    # Fetch the current logged-in patient
     @patient = current_patient
-    # Fetch the chosen doctor
     @doctor = Doctor.find(params[:appointment][:doctor_id])
     # Check if a date was chosen for the appointment
     if params[:appointment][:appointment_date].present?
