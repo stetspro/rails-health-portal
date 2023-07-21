@@ -12,14 +12,13 @@
         <th>Doctor</th>
         <th>Appointment Date</th>
         <th>Appointment Time</th>
-        <!-- add other columns as needed -->
       </tr>
     </thead>
 
     <tbody>
       <% if @appointments.present? %>
         <% @appointments.each do |appointment| %>
-          <tr>
+          <tr class="<%= 'past-appointment' if appointment.appointment_date < Date.today %>">
             <td><%= appointment.doctor.full_name %></td>
             <td><%= appointment.appointment_date.strftime("%m-%d-%Y") %></td>
             <td><%= appointment.appointment_time.strftime("%H:%M") %></td>

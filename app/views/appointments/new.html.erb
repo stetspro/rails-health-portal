@@ -1,9 +1,12 @@
+<% if @suggested_date.present? %>
+  <h2>Recommended appointment date: <%= @suggested_date %></h2>
+<% end %>
 <%= form_for([@patient, @appointment]) do |f| %>
   <%= f.label :doctor_id, "Choose a doctor:" %>
   <%= f.collection_select(:doctor_id, @doctors, :id, :full_name, prompt: "Select a doctor") %>
 
   <%= f.label :appointment_date, "Choose a date for your appointment:" %>
-  <%= f.date_field :appointment_date, id: "appointment-date" %>
+  <%= f.date_field :appointment_date, id: "appointment-date", :readonly => true%>
   <div id="my-calendar"></div>
   
   <%= f.submit "Next" %>

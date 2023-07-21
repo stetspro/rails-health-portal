@@ -16,6 +16,10 @@
         <%= appointment.appointment_time.strftime("%H:%M") %> - <%= (appointment.appointment_time + 30.minutes).strftime("%H:%M") %>
       </td>
       <td><%= appointment.patient.first_name %> <%= appointment.patient.last_name %></td>
+      <td>
+      <%= link_to "Create Diagnosis", new_patient_diagnosis_path(patient_id: appointment.patient.id, appointment_id: appointment.id), class: "btn btn-primary" %>
+
+      </td>
     </tr>
   <% end %>
   </tbody>
