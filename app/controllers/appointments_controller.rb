@@ -6,6 +6,7 @@ class AppointmentsController < ApplicationController
     @patient = current_patient
     @appointment = Appointment.new
     @doctors = Doctor.all
+    @suggested_date = flash[:openai_suggested_date]
     @all_times = (9..12).to_a + (14..20).to_a # all times from 9 to 20, excluding 13
   end
   
