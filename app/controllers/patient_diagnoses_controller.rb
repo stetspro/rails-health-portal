@@ -26,10 +26,11 @@ class PatientDiagnosesController < ApplicationController
   
   
   private
+  # This function extracts the date from OpenAI's output.
   def parse_date_from_openai(openai_result)
-    # This function extracts the date from OpenAI's output.
     # It assumes the date is in 'yyyy-mm-dd' format and is the last word in the output.
-    openai_result["choices"].first["message"]["content"]
+    date_str = openai_result["choices"].first["message"]["content"]
+    Date.parse(date_str)
   end
 
   def check_and_send_to_openai(patient_diagnosis)
