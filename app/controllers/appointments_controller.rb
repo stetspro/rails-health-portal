@@ -29,6 +29,7 @@ class AppointmentsController < ApplicationController
    def create
     @patient = current_patient
     @doctor = Doctor.find(params[:appointment][:doctor_id])
+    @suggested_appointment = @patient.ai_schedulers.order(created_at: :desc).first
     # Check if a date was chosen for the appointment
     if params[:appointment][:appointment_date].present?
       # If a date was chosen, store it in the session
@@ -56,11 +57,19 @@ class AppointmentsController < ApplicationController
     # Build a new appointment instance using parameters from the form
     @appointment = @patient.appointments.new(appointment_params)
     @appointment.patient_id = @patient.id
+    # Fetch the latest AiScheduler instance for the patient
+    suggested_appointment = @patient.ai_schedulers.order(created_at: :desc).first
     # Attempt to save the appointment
     if @appointment.save!
       # If successful, remove the appointment date from the session and display a success message
       session.delete(:appointment_date)
       flash[:success] = "Appointment was successfully created."
+      # Update the AiScheduler instance if this appointment matches the suggested one
+      if suggested_appointment.present? && 
+         suggested_appointment.doctor_id == @appointment.doctor_id && 
+         suggested_appointment.date == @appointment.appointment_date
+        suggested_appointment.update(has_taken_appointment: true)
+      end
       redirect_to dashboard_path
     else
       # If unsuccessful, display an error message and render the choose_time view again
@@ -69,6 +78,7 @@ class AppointmentsController < ApplicationController
       render :choose_time
     end
   end
+  
   
   private
 

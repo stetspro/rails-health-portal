@@ -1,4 +1,4 @@
-<%= form_for([@patient, @appointment]) do |f| %>
+<%= form_for([@patient, @appointment], url: finalize_patient_appointments_path(@patient)) do |f| %>
   <h2>Recommended Doctor: <%= suggested_appointment.doctor.full_name %></h2>
   <%= f.hidden_field :doctor_id, value: suggested_appointment.doctor.id %>
 
