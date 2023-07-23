@@ -44,7 +44,8 @@ def confirm_schedule
     patient: @patient,
     date: params[:ai_scheduler][:date],
     patient_diagnosis: @patient_diagnosis,
-    has_taken_appointment: false
+    has_taken_appointment: false,
+    doctor: Doctor.find(session[:doctor_id])
   )
   redirect_to daily_patients_doctor_path(session[:doctor_id])
 end
