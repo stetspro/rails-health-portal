@@ -9,11 +9,21 @@ class AppointmentsController < ApplicationController
     # Build a new blank appointment for the form
     @appointment = Appointment.new
     @doctors = Doctor.all
-    # Retrieve the latest suggested appointment date from the aischeduler table
-    @suggested_date = @patient.ai_schedulers.order(created_at: :desc).first&.date
-    # Define the range of possible appointment times, from 9 to 20, excluding 13
-    @all_times = (9..12).to_a + (14..20).to_a
+    # Retrieve the latest suggested appointment from the aischeduler table
+    @suggested_appointment = @patient.ai_schedulers.order(created_at: :desc).first
+    if @suggested_appointment
+      @suggested_date = @suggested_appointment.date
+      @doctor = @suggested_appointment.doctor
+      # Define the range of possible appointment times, from 9 to 20, excluding 13
+      @all_times = (9..12).to_a + (14..20).to_a
+      # Find when the doctor already has appointments on the suggested date
+      existing_appointment_times = @doctor.appointments.where(appointment_date: @suggested_date).pluck(:appointment_time).map { |time| time.hour }
+      # Determine the times when the doctor is available
+      @available_times = @all_times - existing_appointment_times
+    end
   end
+  
+  
   
    # Process the form submission for creating a new appointment
    def create
