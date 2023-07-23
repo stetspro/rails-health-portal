@@ -1,12 +1,27 @@
 <%= form_for([@patient, @appointment], url: finalize_patient_appointments_path(@patient)) do |f| %>
-  <h2>Recommended Doctor: <%= suggested_appointment.doctor.full_name %></h2>
-  <%= f.hidden_field :doctor_id, value: suggested_appointment.doctor.id %>
+  <table>
+    <thead>
+      <tr>
+        <th>Recommended Doctor</th>
+        <th>Recommended appointment date</th>
+        <th>Choose a time for your appointment:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @suggested_appointment.doctor.full_name %></td>
+        <%= f.hidden_field :doctor_id, value: @suggested_appointment.doctor.id %>
 
-  <h2>Recommended appointment date: <%= suggested_appointment.date %></h2>
-  <%= f.hidden_field :appointment_date, value: suggested_appointment.date %>
+        <td><%= @suggested_appointment.date.strftime("%m-%d-%Y") %></td>
+        <%= f.hidden_field :appointment_date, value: @suggested_appointment.date %>
 
-  <%= f.label :appointment_time, "Choose a time for your appointment:" %>
-  <%= f.select :appointment_time, options_for_select(available_times.map { |t| [t.to_s + ":00", t] }), {}, prompt: "Select a time" %>
-  
-  <%= f.submit "Create Appointment" %>
+        <td><%= f.select :appointment_time, options_for_select(@available_times.map { |t| [t.to_s + ":00", t] }), {}, prompt: "Select a time" %></td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <%= f.submit "Create Appointment" %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 <% end %>
