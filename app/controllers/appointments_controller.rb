@@ -9,8 +9,8 @@ class AppointmentsController < ApplicationController
     # Build a new blank appointment for the form
     @appointment = Appointment.new
     @doctors = Doctor.all
-    # Retrieve the latest suggested appointment from the aischeduler table
-    @suggested_appointment = @patient.ai_schedulers.order(created_at: :desc).first
+    # Retrieve the latest suggested appointment from the aischeduler table where "has_taken_appointment" is false
+    @suggested_appointment = @patient.ai_schedulers.where(has_taken_appointment: false).order(created_at: :desc).first
     if @suggested_appointment
       @suggested_date = @suggested_appointment.date
       @doctor = @suggested_appointment.doctor
