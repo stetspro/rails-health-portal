@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  patient: one
+  medication: one
+  expiration_date: 2023-07-24
+
+two:
+  patient: two
+  medication: two
+  expiration_date: 2023-07-24

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_23_215659) do
+ActiveRecord::Schema.define(version: 2023_07_24_163817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2023_07_23_215659) do
     t.date "expiration_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "delivery"
     t.index ["patient_id"], name: "index_medications_on_patient_id"
   end
 
@@ -86,6 +87,16 @@ ActiveRecord::Schema.define(version: 2023_07_23_215659) do
     t.string "complaint"
     t.index ["diagnosis_id"], name: "index_patient_diagnoses_on_diagnosis_id"
     t.index ["patient_id"], name: "index_patient_diagnoses_on_patient_id"
+  end
+
+  create_table "patient_medications", force: :cascade do |t|
+    t.bigint "patient_id", null: false
+    t.bigint "medication_id", null: false
+    t.date "expiration_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["medication_id"], name: "index_patient_medications_on_medication_id"
+    t.index ["patient_id"], name: "index_patient_medications_on_patient_id"
   end
 
   create_table "patients", force: :cascade do |t|
@@ -109,4 +120,6 @@ ActiveRecord::Schema.define(version: 2023_07_23_215659) do
   add_foreign_key "medications", "patients"
   add_foreign_key "patient_diagnoses", "diagnoses"
   add_foreign_key "patient_diagnoses", "patients"
+  add_foreign_key "patient_medications", "medications"
+  add_foreign_key "patient_medications", "patients"
 end
