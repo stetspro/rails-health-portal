@@ -5,10 +5,12 @@ class PatientsController < ApplicationController
   def dashboard
     @patient = current_patient
     @appointments = current_patient.appointments.order(appointment_date: :desc, appointment_time: :desc).limit(5)
+    @patient_medications = current_patient.patient_medications.joins(:medication).order('expiration_date DESC, medications.brand_name ASC').limit(5)
   end
 
   private
-   def patient_params
+
+  def patient_params
     params.require(:patient).permit(:first_name, :last_name, :email, :date_of_birth, :address, :password, :password_confirmation)
   end
 end

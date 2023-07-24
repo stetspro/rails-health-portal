@@ -13,7 +13,7 @@
         <%= f.hidden_field :doctor_id, value: @suggested_appointment.doctor.id %>
 
         <td><%= @suggested_appointment.date.strftime("%m-%d-%Y") %></td>
-        <%= f.hidden_field :appointment_date, value: @suggested_appointment.date %>
+        <%= f.hidden_field :appointment_date, value: @suggested_appointment.date.strftime("%m-%d-%Y") %>
 
         <td><%= f.select :appointment_time, options_for_select(@available_times.map { |t| [t.to_s + ":00", t] }), {}, prompt: "Select a time" %></td>
       </tr>
