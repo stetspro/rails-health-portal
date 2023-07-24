@@ -32,7 +32,7 @@
     <% @current_medications.each do |medication| %>
       <tr>
         <td><%= medication.medication.brand_name %></td>
-        <td><%= medication.expiration_date %></td>
+        <td><%= medication.expiration_date.strftime("%m-%d-%Y") %></td>
       </tr>
     <% end %>
   </tbody>
@@ -50,7 +50,7 @@
     <% @expired_medications.each do |medication| %>
       <tr>
         <td><%= medication.medication.brand_name %></td>
-        <td><%= medication.expiration_date %></td>
+        <td><%= medication.expiration_date.strftime("%m-%d-%Y") %></td>
       </tr>
     <% end %>
   </tbody>
@@ -68,7 +68,7 @@
     <% @chronic_diagnoses.each do |patient_diagnosis| %>
       <tr>
         <td><%= patient_diagnosis.diagnosis.name %></td>
-        <td><%= patient_diagnosis.created_at.to_date %></td>
+        <td><%= patient_diagnosis.created_at.to_date.strftime("%m-%d-%Y") %></td>
       </tr>
     <% end %>
   </tbody>
