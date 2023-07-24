@@ -36,3 +36,7 @@ medications = [
 medications.each do |medication|
   Medication.create!(medication)
 end
+
+
+PatientMedication.create(patient_id: 1, medication_id: rand(1..20), expiration_date: '2023-07-30')
+PatientMedication.create(patient_id: 1, medication_id: rand(1..20), expiration_date: '2023-06-20')

@@ -3,7 +3,8 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Pharmacological Name</th>
+      <th>Brand Name</th>
       <th>Dosage</th>
       <th>Frequency</th>
       <th>Delivery</th>
@@ -14,11 +15,12 @@
   <tbody>
     <% @patient_medications.each do |patient_medication| %>
       <tr>
-        <td><%= patient_medication.medication.name %></td>
+        <td><%= patient_medication.medication.pharmacological_name %></td>
+        <td><%= patient_medication.medication.brand_name %></td>
         <td><%= patient_medication.medication.dosage %></td>
         <td><%= patient_medication.medication.frequency %></td>
         <td><%= patient_medication.medication.delivery %></td>
-        <td><%= patient_medication.expiration_date %></td>
+        <td><%= patient_medication.expiration_date.strftime("%m-%d-%Y") %></td>
       </tr>
     <% end %>
   </tbody>
