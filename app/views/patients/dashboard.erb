@@ -13,7 +13,7 @@
   <tbody>
     <% if @appointments.present? %>
       <% @appointments.each do |appointment| %>
-        <tr class="<%= 'past-appointment' if appointment.appointment_date < Date.today %>">
+        <tr class="<%= 'past-date' if appointment.appointment_date < Date.today %>">
           <td><%= appointment.doctor.full_name %></td>
           <td><%= appointment.appointment_date.strftime("%m-%d-%Y") %></td>
           <td><%= appointment.appointment_time.strftime("%H:%M") %></td>
@@ -26,4 +26,29 @@
     <% end %>
   </tbody>
 </table>
+
+</div>
+<div>
+  <table>
+    <caption><h2>Medications</h2></caption>
+    <thead>
+      <tr>
+        <th>Brand Name</th>
+        <th>Frequency</th>
+        <th>Delivery</th>
+        <th>Expiration Date</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @patient_medications.each do |patient_medication| %>
+        <tr class="<%= 'past-date' if patient_medication.expiration_date < Date.today %>">
+          <td><%= patient_medication.medication.brand_name %></td>
+          <td><%= patient_medication.medication.frequency %></td>
+          <td><%= patient_medication.medication.delivery %></td>
+          <td><%= patient_medication.expiration_date.strftime("%m-%d-%Y") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
