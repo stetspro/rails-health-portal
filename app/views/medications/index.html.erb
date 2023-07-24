@@ -14,7 +14,7 @@
 
   <tbody>
     <% @patient_medications.each do |patient_medication| %>
-      <tr>
+      <tr class="<%= 'expired-medication' if patient_medication.expiration_date < Date.today %>">
         <td><%= patient_medication.medication.pharmacological_name %></td>
         <td><%= patient_medication.medication.brand_name %></td>
         <td><%= patient_medication.medication.dosage %></td>
