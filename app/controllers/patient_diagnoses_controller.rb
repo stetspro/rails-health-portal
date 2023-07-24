@@ -11,9 +11,15 @@ class PatientDiagnosesController < ApplicationController
     @doctor = @appointment[:doctor_id]
     # Fetch the current and expired medications
     @current_medications = @patient.patient_medications.includes(:medication).where('expiration_date >= ?', Date.today)
-  @expired_medications = @patient.patient_medications.includes(:medication).where('expiration_date < ?', Date.today).last(5)
+    @expired_medications = @patient.patient_medications.includes(:medication).where('expiration_date < ?', Date.today).last(5)
     # Fetch the previous chronic diagnoses
-    @chronic_diagnoses = @patient.patient_diagnoses.includes(:diagnosis).where(diagnoses: { is_chronic: true })
+    chronic_diagnoses_ids = @patient.patient_diagnoses
+    .joins(:diagnosis)
+    .where(diagnoses: { is_chronic: true })
+    .group(:diagnosis_id)
+    .select('MIN(patient_diagnoses.id) as id')
+  
+    @chronic_diagnoses = PatientDiagnosis.where(id: chronic_diagnoses_ids.map(&:id)).order(created_at: :desc)
   end
   
   # This method is called when submitting the new patient diagnosis form
