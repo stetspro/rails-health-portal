@@ -1,5 +1,5 @@
-<% if @suggested_date.present? %>
-  <h2>Recommended appointment date: <%= @suggested_date %></h2>
+<% if @suggested_appointment.present? %>
+  <%= render 'followup', suggested_appointment: @suggested_appointment, available_times: @available_times %>
 <% end %>
 <%= form_for([@patient, @appointment]) do |f| %>
   <%= f.label :doctor_id, "Choose a doctor:" %>

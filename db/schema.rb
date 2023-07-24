@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_17_193800) do
+ActiveRecord::Schema.define(version: 2023_07_23_215659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ai_schedulers", force: :cascade do |t|
+    t.bigint "patient_id", null: false
+    t.date "date"
+    t.bigint "patient_diagnosis_id", null: false
+    t.boolean "has_taken_appointment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "doctor_id", null: false
+    t.index ["doctor_id"], name: "index_ai_schedulers_on_doctor_id"
+    t.index ["patient_diagnosis_id"], name: "index_ai_schedulers_on_patient_diagnosis_id"
+    t.index ["patient_id"], name: "index_ai_schedulers_on_patient_id"
+  end
 
   create_table "appointments", force: :cascade do |t|
     t.bigint "doctor_id", null: false
@@ -87,6 +100,9 @@ ActiveRecord::Schema.define(version: 2023_07_17_193800) do
     t.string "remember_token"
   end
 
+  add_foreign_key "ai_schedulers", "doctors"
+  add_foreign_key "ai_schedulers", "patient_diagnoses"
+  add_foreign_key "ai_schedulers", "patients"
   add_foreign_key "appointments", "doctors"
   add_foreign_key "appointments", "patients"
   add_foreign_key "doctors", "hospitals"

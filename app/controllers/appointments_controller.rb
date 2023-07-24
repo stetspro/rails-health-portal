@@ -5,24 +5,31 @@ class AppointmentsController < ApplicationController
 
   # Prepare for creating a new appointment
   def new
-    # Fetch the current logged-in patient
     @patient = current_patient
     # Build a new blank appointment for the form
     @appointment = Appointment.new
-    # Fetch all doctors for the doctor selection dropdown
     @doctors = Doctor.all
-    # Retrieve any suggested date from the flash message
-    @suggested_date = flash[:openai_suggested_date]
-    # Define the range of possible appointment times, from 9 to 20, excluding 13
-    @all_times = (9..12).to_a + (14..20).to_a
+    # Retrieve the latest suggested appointment from the aischeduler table where "has_taken_appointment" is false
+    @suggested_appointment = @patient.ai_schedulers.where(has_taken_appointment: false).order(created_at: :desc).first
+    if @suggested_appointment
+      @suggested_date = @suggested_appointment.date
+      @doctor = @suggested_appointment.doctor
+      # Define the range of possible appointment times, from 9 to 20, excluding 13
+      @all_times = (9..12).to_a + (14..20).to_a
+      # Find when the doctor already has appointments on the suggested date
+      existing_appointment_times = @doctor.appointments.where(appointment_date: @suggested_date).pluck(:appointment_time).map { |time| time.hour }
+      # Determine the times when the doctor is available
+      @available_times = @all_times - existing_appointment_times
+    end
   end
+  
+  
   
    # Process the form submission for creating a new appointment
    def create
-    # Fetch the current logged-in patient
     @patient = current_patient
-    # Fetch the chosen doctor
     @doctor = Doctor.find(params[:appointment][:doctor_id])
+    @suggested_appointment = @patient.ai_schedulers.order(created_at: :desc).first
     # Check if a date was chosen for the appointment
     if params[:appointment][:appointment_date].present?
       # If a date was chosen, store it in the session
@@ -50,11 +57,19 @@ class AppointmentsController < ApplicationController
     # Build a new appointment instance using parameters from the form
     @appointment = @patient.appointments.new(appointment_params)
     @appointment.patient_id = @patient.id
+    # Fetch the latest AiScheduler instance for the patient
+    suggested_appointment = @patient.ai_schedulers.order(created_at: :desc).first
     # Attempt to save the appointment
     if @appointment.save!
       # If successful, remove the appointment date from the session and display a success message
       session.delete(:appointment_date)
       flash[:success] = "Appointment was successfully created."
+      # Update the AiScheduler instance if this appointment matches the suggested one
+      if suggested_appointment.present? && 
+         suggested_appointment.doctor_id == @appointment.doctor_id && 
+         suggested_appointment.date == @appointment.appointment_date
+        suggested_appointment.update(has_taken_appointment: true)
+      end
       redirect_to dashboard_path
     else
       # If unsuccessful, display an error message and render the choose_time view again
@@ -63,6 +78,7 @@ class AppointmentsController < ApplicationController
       render :choose_time
     end
   end
+  
   
   private
 
