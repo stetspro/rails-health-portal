@@ -9,6 +9,11 @@ class PatientDiagnosesController < ApplicationController
     @patient_diagnosis = PatientDiagnosis.new
     # Get the doctor id from the appointment for later use
     @doctor = @appointment[:doctor_id]
+    # Fetch the current and expired medications
+    @current_medications = @patient.patient_medications.includes(:medication).where('expiration_date >= ?', Date.today)
+  @expired_medications = @patient.patient_medications.includes(:medication).where('expiration_date < ?', Date.today).last(5)
+    # Fetch the previous chronic diagnoses
+    @chronic_diagnoses = @patient.patient_diagnoses.includes(:diagnosis).where(diagnoses: { is_chronic: true })
   end
   
   # This method is called when submitting the new patient diagnosis form
