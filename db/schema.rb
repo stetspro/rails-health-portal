@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_24_170714) do
+ActiveRecord::Schema.define(version: 2023_07_24_230425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,7 +93,9 @@ ActiveRecord::Schema.define(version: 2023_07_24_170714) do
     t.date "expiration_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "patient_diagnosis_id"
     t.index ["medication_id"], name: "index_patient_medications_on_medication_id"
+    t.index ["patient_diagnosis_id"], name: "index_patient_medications_on_patient_diagnosis_id"
     t.index ["patient_id"], name: "index_patient_medications_on_patient_id"
   end
 
@@ -118,5 +120,6 @@ ActiveRecord::Schema.define(version: 2023_07_24_170714) do
   add_foreign_key "patient_diagnoses", "diagnoses"
   add_foreign_key "patient_diagnoses", "patients"
   add_foreign_key "patient_medications", "medications"
+  add_foreign_key "patient_medications", "patient_diagnoses"
   add_foreign_key "patient_medications", "patients"
 end
