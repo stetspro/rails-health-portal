@@ -33,17 +33,15 @@ class PatientDiagnosesController < ApplicationController
 
      # Attempt to save the new patient diagnosis instance to the database
     if @patient_diagnosis.save
-        # If medication_ids were provided in the form, create associated PatientMedication records
-        if params[:patient_diagnosis][:medication_ids].present?
-          params[:patient_diagnosis][:medication_ids].each_with_index do |medication_id, index|
-            PatientMedication.create(
-              patient: @patient,
-              patient_diagnosis: @patient_diagnosis,
-              medication_id: medication_id,
-              expiration_date: params[:patient_diagnosis][:expiration_dates][index]
-            )
-          end
-        end
+        # If medication_id was provided in the form, create associated PatientMedication record
+      if params[:patient_diagnosis][:medication_id].present? && params[:patient_diagnosis][:expiration_date].present?
+        PatientMedication.create(
+          patient: @patient,
+          patient_diagnosis: @patient_diagnosis,
+          medication_id: params[:patient_diagnosis][:medication_id],
+          expiration_date: params[:patient_diagnosis][:expiration_date]
+        )
+      end
   
       # If save was successful, send the patient diagnosis to OpenAI for processing
       session[:openai_result] = check_and_send_to_openai(@patient_diagnosis)
@@ -121,6 +119,6 @@ class PatientDiagnosesController < ApplicationController
   end
   
   def patient_diagnosis_params
-    params.require(:patient_diagnosis).permit(:complaint, :diagnosis_id, :patient_id, medication_ids: [], expiration_dates: [])
+    params.require(:patient_diagnosis).permit(:complaint, :diagnosis_id, :patient_id, :medication_id, :expiration_dates)
   end
 end

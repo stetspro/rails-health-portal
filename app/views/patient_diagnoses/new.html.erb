@@ -87,15 +87,16 @@
   </div>
   <%= form.hidden_field :patient_id, value: @patient.id %>
   <div class="actions">
-  <div class="field">
   
+  <div class="field">
   <%= form.fields_for :patient_medications do |pm_form| %>
     <%= pm_form.label :medication_id, 'Choose medication:' %>
-    <%= pm_form.collection_select :medication_id, @medications, :id, lambda { |med| "#{med.brand_name} - #{med.dosage}" } %>
+    <%= pm_form.collection_select :medication_id, @medications, :id, lambda { |med| "#{med.brand_name} - #{med.dosage}" }, {name: 'patient_diagnosis[medication_ids][]'} %>
 
     <%= pm_form.label :expiration_date, 'Medication Expiration Date:' %>
-    <%= pm_form.date_field :expiration_date %>
+    <%= pm_form.date_field :expiration_date, {name: 'patient_diagnosis[expiration_dates][]'} %>
   <% end %>
+  </div>
 
     <%= form.submit %>
   </div>
