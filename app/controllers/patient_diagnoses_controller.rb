@@ -5,8 +5,9 @@ class PatientDiagnosesController < ApplicationController
     @appointment = Appointment.find(params[:appointment_id])
     # Get the patient from the database using the id passed in the URL parameters
     @patient = Patient.find(params[:patient_id])
-    # Create a new, unsaved patient diagnosis instance for the form to use
+    # Create a new, unsaved patient diagnosis and patient medication instance for the form to use
     @patient_diagnosis = PatientDiagnosis.new
+    @patient_medication = PatientMedication.new
     # Get the doctor id from the appointment for later use
     @doctor = @appointment[:doctor_id]
     @medications = Medication.all
@@ -27,24 +28,28 @@ class PatientDiagnosesController < ApplicationController
   def create
     # Get the patient from the database using the id passed in the form parameters
     @patient = Patient.find(params[:patient_id])
-    
+  
     # Create a new patient diagnosis instance and associate it with the patient
     @patient_diagnosis = @patient.patient_diagnoses.new(patient_diagnosis_params)
 
-     # Attempt to save the new patient diagnosis instance to the database
+    # Create a new PatientMedication instance and set the patient_id field
+    @patient_medication = PatientMedication.new(patient_medication_params.merge(patient_id: @patient.id))
+
+    # Attempt to save the new patient diagnosis instance to the database
     if @patient_diagnosis.save
-        # If medication_id was provided in the form, create associated PatientMedication record
-      if params[:patient_diagnosis][:medication_id].present? && params[:patient_diagnosis][:expiration_date].present?
-        PatientMedication.create(
-          patient: @patient,
-          patient_diagnosis: @patient_diagnosis,
-          medication_id: params[:patient_diagnosis][:medication_id],
-          expiration_date: params[:patient_diagnosis][:expiration_date]
-        )
-      end
+      # If medication_id and expiration_date were provided in the form, create associated PatientMedication record
+      if params[:patient_medication][:medication_id].present? && params[:patient_medication][:expiration_date].present?
+        @patient_medication.patient_diagnosis_id = @patient_diagnosis.id
   
-      # If save was successful, send the patient diagnosis to OpenAI for processing
-      session[:openai_result] = check_and_send_to_openai(@patient_diagnosis)
+        # Attempt to save the new PatientMedication instance to the database
+        if @patient_medication.save
+          # If save was successful, send the patient diagnosis and medication to OpenAI for processing
+          session[:openai_result] = check_and_send_to_openai(@patient_diagnosis, @patient_medication)
+        end
+      else
+        # If medication_id or expiration_date were not provided, send only the patient diagnosis to OpenAI for processing
+        session[:openai_result] = check_and_send_to_openai(@patient_diagnosis, nil)
+      end
       
       if session[:openai_result]
         # If OpenAI processing was successful, redirect to the scheduling page
@@ -99,26 +104,23 @@ class PatientDiagnosesController < ApplicationController
   end
 
   # This function sends the diagnosis to OpenAI if it's a chronic disease
-  def check_and_send_to_openai(patient_diagnosis)
-    # Find the diagnosis associated with the patient_diagnosis object
+  def check_and_send_to_openai(patient_diagnosis, patient_medication)
     diagnosis = Diagnosis.find(patient_diagnosis.diagnosis_id)
-    
-    # Check if the diagnosis is chronic
+  
     if diagnosis.is_chronic
-      # Get the medications associated with the patient_diagnosis object
-      medications = patient_diagnosis.patient_medications.map { |pm| Medication.find(pm.medication_id) }
-      # Send the patient_diagnosis object and medications to OpenAI for processing
-      OpenaiService.send_diagnosis(patient_diagnosis, medications)
+      # Get the medication associated with the patient_diagnosis object if it exists
+      medication = patient_medication.nil? ? nil : Medication.find(patient_medication.medication_id)
+  
+      # Send the patient_diagnosis object and medication to OpenAI for processing
+      OpenaiService.send_diagnosis(patient_diagnosis, medication)
     end
   end
   
-
-  # This method fetches the appointment details based on the appointment id passed in parameters
-  def set_appointment
-    @appointment = Appointment.find(params[:appointment_id])
-  end
-  
   def patient_diagnosis_params
-    params.require(:patient_diagnosis).permit(:complaint, :diagnosis_id, :patient_id, :medication_id, :expiration_dates)
+    params.require(:patient_diagnosis).permit(:complaint, :diagnosis_id, :patient_id)
+  end
+
+  def patient_medication_params
+    params.require(:patient_medication).permit(:medication_id, :expiration_date)
   end
 end
