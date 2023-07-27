@@ -3,7 +3,6 @@ class MedicationsController < ApplicationController
 
   def index
     @patient = current_patient
-    @patient_medications = @patient.patient_medications
-  end
+    @patient_medications = @patient.patient_medications.includes(:medication).order("expiration_date DESC, medications.brand_name ASC")  end
 
 end
