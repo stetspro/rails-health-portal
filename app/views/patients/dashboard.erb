@@ -26,10 +26,34 @@
     <% end %>
   </tbody>
 </table>
-
 </div>
+
 <div>
-  <table>
+  <table class="diagnosis-table">
+    <caption><h2>Diagnoses</h2></caption>
+    <thead>
+      <tr>
+        <th>Diagnosis</th>
+        <th>Complaint</th>
+        <th>Date Diagnosed</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @diagnoses.each do |diagnosis| %>
+        <tr class="<%= 'not-chronic' unless diagnosis.is_chronic %>">
+          <td><%= diagnosis.name %></td>
+          <td><%= diagnosis.complaint %></td>
+          <td><%= diagnosis.created_at.strftime("%m-%d-%Y") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div>
+  <table class="medication-table">
     <caption><h2>Medications</h2></caption>
     <thead>
       <tr>
@@ -42,7 +66,7 @@
 
     <tbody>
       <% @patient_medications.each do |patient_medication| %>
-        <tr class="<%= 'past-date' if patient_medication.expiration_date < Date.today %>">
+        <tr class="<%= 'expired-medication' if patient_medication.expiration_date < Date.today %>">
           <td><%= patient_medication.medication.brand_name %></td>
           <td><%= patient_medication.medication.frequency %></td>
           <td><%= patient_medication.medication.delivery %></td>
