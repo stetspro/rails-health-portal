@@ -28,13 +28,11 @@
   </div>
   
   <div class="field">
-    <%= form.label :specialty %>
-    <%= form.text_field :specialty %>
+    <%= form.hidden_field :specialty, value: "Family Medicine" %>
   </div>
 
   <div class="field">
-    <%= form.label :hospital_id %>
-    <%= form.number_field :hospital_id %>
+    <%= form.hidden_field :hospital_id, value: 1 %>
   </div>
 
   <div class="field">
