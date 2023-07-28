@@ -10,7 +10,7 @@
   </tr>
   <tr>
     <td>Date of Birth:</td>
-    <td><%= @patient.date_of_birth %></td>
+    <td><%= @patient.date_of_birth.strftime("%m-%d-%Y") %></td>
   </tr>
 </table>
 
@@ -19,7 +19,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Expiration Date</th>
+      <th>Prescription Valid Until</th>
     </tr>
   </thead>
   <tbody>
@@ -43,7 +43,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Expiration Date</th>
+      <th>Prescription Valid Until</th>
     </tr>
   </thead>
   <tbody>
