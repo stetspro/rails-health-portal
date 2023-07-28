@@ -1,34 +1,3 @@
 // Place all the styles related to the Doctors controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-table {
-  width: 100%;
-  border-collapse: collapse;
-
-  th, td {
-    padding: 10px;
-    border: 1px solid #ddd; // Light gray border
-    text-align: center; // Center text
-  }
-
-  th {
-    background-color: #B71C1C; // Red background color for the header
-    color: #fff; // White text color for the header
-  }
-
-  tbody tr:nth-child(even) {
-    background-color: #f2f2f2; // Gray background color for every other row
-  }
-
-  tbody tr:hover {
-    background-color: #ddd; // Darker gray background color when hovering over a row
-  }
-
-  tbody td {
-    // Actions column style, assuming there is an 'actions' class on the Actions column td
-    &.actions {
-      display: flex;
-      justify-content: space-around; // Spread out the action buttons if there are multiple
-    }
-  }
-}

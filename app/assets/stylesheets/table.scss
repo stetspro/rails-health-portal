@@ -1,4 +1,4 @@
-table {
+.dashboard-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 1px;
@@ -62,9 +62,8 @@ table {
       justify-content: space-around; // Spread out the action buttons if there are multiple
     }
   }
-}
-
-.highlighted-row {
-  background-color: #f2dede;
-  color: #a94442; 
+  .highlighted-row {
+    background-color: #f2dede;
+    color: #a94442; 
+  }
 }
