@@ -5,3 +5,17 @@
   background-color: #f2dede; /* a light red background */
   color: #a94442; /* a dark red text */
 }
+.dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.dashboard-item {
+  flex: 1;
+  margin: 10px;
+}
