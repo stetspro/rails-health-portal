@@ -1,11 +1,5 @@
-<table>
-  <thead>
-    <tr>
-      <th>Basic Patient Information</th>
-    </tr>
-  </thead>
-</table>
-<table>
+<caption><h2>Basic Patient Information</h2></caption>
+<table class="dashboard-table">
   <tr>
     <td>First Name:</td>
     <td><%= @patient.first_name %></td>
@@ -20,8 +14,8 @@
   </tr>
 </table>
 
-<h2>Currently Used Medications</h2>
-<table>
+<caption><h2>Currently Used Medications</h2></caption>
+<table class="dashboard-table">
   <thead>
     <tr>
       <th>Name</th>
@@ -29,17 +23,23 @@
     </tr>
   </thead>
   <tbody>
-    <% @current_medications.each do |medication| %>
+    <% if @current_medications.present? %>
+      <% @current_medications.each do |medication| %>
+        <tr>
+          <td><%= medication.medication.brand_name %></td>
+          <td><%= medication.expiration_date.strftime("%m-%d-%Y") %></td>
+        </tr>
+      <% end %>
+    <% else %>
       <tr>
-        <td><%= medication.medication.brand_name %></td>
-        <td><%= medication.expiration_date.strftime("%m-%d-%Y") %></td>
+        <td colspan="2">No Current Medications Found</td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<h2>Expired Medications</h2>
-<table>
+<caption><h2>Expired Medications</h2></caption>
+<table class="dashboard-table">
   <thead>
     <tr>
       <th>Name</th>
@@ -47,17 +47,23 @@
     </tr>
   </thead>
   <tbody>
-    <% @expired_medications.each do |medication| %>
+    <% if @expired_medications.present? %>
+      <% @expired_medications.each do |medication| %>
+        <tr>
+          <td><%= medication.medication.brand_name %></td>
+          <td><%= medication.expiration_date.strftime("%m-%d-%Y") %></td>
+        </tr>
+      <% end %>
+    <% else %>
       <tr>
-        <td><%= medication.medication.brand_name %></td>
-        <td><%= medication.expiration_date.strftime("%m-%d-%Y") %></td>
+        <td colspan="2">No Expired Medications Found</td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<h2>Previous Chronic Diagnoses</h2>
-<table>
+<caption><h2>Previous Chronic Diagnoses</h2></caption>
+<table class="dashboard-table">
   <thead>
     <tr>
       <th>Diagnosis Name</th>
@@ -65,14 +71,21 @@
     </tr>
   </thead>
   <tbody>
-    <% @chronic_diagnoses.each do |patient_diagnosis| %>
+    <% if @chronic_diagnoses.present? %>
+      <% @chronic_diagnoses.each do |patient_diagnosis| %>
+        <tr>
+          <td><%= patient_diagnosis.diagnosis.name %></td>
+          <td><%= patient_diagnosis.created_at.to_date.strftime("%m-%d-%Y") %></td>
+        </tr>
+      <% end %>
+    <% else %>
       <tr>
-        <td><%= patient_diagnosis.diagnosis.name %></td>
-        <td><%= patient_diagnosis.created_at.to_date.strftime("%m-%d-%Y") %></td>
+        <td colspan="2">No Chronic Diagnoses Found</td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
 
 
 <%= form_for @patient_diagnosis, url: diagnostic_form_path(@patient), method: :post do |form| %>

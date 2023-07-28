@@ -1,6 +1,5 @@
-<h1>M.D. <%= @doctor.full_name %>'s Daily Patients</h1>
-
-<table>
+<caption><h2>M.D. <%= @doctor.full_name %>'s Daily Patients</h2></caption>
+<table class="dashboard-table">
   <thead>
     <tr>
       <th>Appointment Time</th>
@@ -8,7 +7,6 @@
       <th>Actions</th>
     </tr>
   </thead>
-
   <tbody>
   <% @appointments.each do |appointment| %>
     <tr>
@@ -18,7 +16,6 @@
       <td><%= appointment.patient.first_name %> <%= appointment.patient.last_name %></td>
       <td>
       <%= link_to "Create Diagnosis", new_patient_diagnosis_path(patient_id: appointment.patient.id, appointment_id: appointment.id), class: "btn btn-primary" %>
-
       </td>
     </tr>
   <% end %>
