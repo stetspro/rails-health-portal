@@ -115,7 +115,7 @@
 			width: 36px;
 		}
 		.jsCalendar tbody td:hover {
-			background-color: #ee683381;
+			background-color: #B5BA72;
 		}
 		.jsCalendar tbody td.jsCalendar-selected {
 			background-color: #B98EA7;
@@ -142,6 +142,7 @@
 		.jsCalendar thead {
 			display: block;
 			margin: 4px 4px 0 4px;
+			background-color: #B71C1C; // Red background color for the header
 		}
 		.jsCalendar tbody {
 			display: block;
