@@ -2,18 +2,21 @@
   background-color: #B71C1C;
   display: flex;
   justify-content: space-between;
+  align-items: center; 
   padding: 10px;
+  width: 100%;
 
   .navbar-brand {
     color: #fff;
     font-size: 2em;
+    font-family: 'Russo One', sans-serif;
   }
 
   .navbar-nav {
-    float:right;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-right: 30px;
 
     .nav-item {
       position:relative;

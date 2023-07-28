@@ -25,6 +25,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-family: 'Kanit', sans-serif;
 }
 
 .main-content {
@@ -34,4 +35,7 @@ body {
 footer {
   background: #f8f9fa;
   padding: 20px;
+}
+h2 {
+  color: #292F36;
 }
