@@ -3,14 +3,14 @@
   <thead>
     <tr>
       <th>Appointment Time</th>
-      <th>Patient Name</th>
+      <th>Patient Name (First Last)</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
   <% if @appointments.present? %>
   <% @appointments.each do |appointment| %>
-    <tr class="<%= 'current-time-row' if current_time_in_appointment_range?(appointment) %>">
+    <tr>
       <td>
         <%= appointment.appointment_time.strftime("%H:%M") %> - <%= (appointment.appointment_time + 59.minutes).strftime("%H:%M") %>
       </td>
@@ -18,7 +18,7 @@
         <%= appointment.patient.first_name %> <%= appointment.patient.last_name %>
       </td>
       <td>
-        <%= link_to "Create Diagnosis", new_patient_diagnosis_path(patient_id: appointment.patient.id, appointment_id: appointment.id), class: "button-17" %>
+        <%= link_to "Enter Medical Progress Note", new_patient_diagnosis_path(patient_id: appointment.patient.id, appointment_id: appointment.id), class: "button-17" %>
       </td>
     </tr>
   <% end %>

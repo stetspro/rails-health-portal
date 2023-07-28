@@ -5,11 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Hospital.create(name: 'Hospital 1', address: '123 Street, City, Country')
-Hospital.create(name: 'Hospital 2', address: '456 Avenue, City, Country')
-Hospital.create(name: 'Hospital 3', address: '789 Boulevard, City, Country')
-
-
 medications = [
   { pharmacological_name: "Acetaminophen", brand_name: "Tylenol", dosage: "500mg", frequency: "Every 6 hours", delivery: "Oral" },
   { pharmacological_name: "Ibuprofen", brand_name: "Advil", dosage: "200mg", frequency: "Every 4 to 6 hours", delivery: "Oral" },
@@ -36,7 +31,3 @@ medications = [
 medications.each do |medication|
   Medication.create!(medication)
 end
-
-
-PatientMedication.create(patient_id: 1, medication_id: rand(1..20), expiration_date: '2023-07-30')
-PatientMedication.create(patient_id: 1, medication_id: rand(1..20), expiration_date: '2023-06-20')
