@@ -1,31 +1,29 @@
 <nav class="navbar">
-  <div class="container">
   <a class="navbar-brand" href="<%= session[:patient_id] ? dashboard_path : (session[:doctor_id] ? daily_patients_doctor_path(session[:doctor_id]) : root_path) %>">CanPulse</a>
-    <div class="navbar-nav">
-      <% if session[:patient_id] %>
-        <%= render partial: 'layouts/nav_patient' %>
-      <% elsif session[:doctor_id] %>
-        <%= render partial: 'layouts/nav_doctor' %>
-      <% else %>
-        <ul class="nav-item dropdown">
-          <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-            Patients
-          </a>
-          <ul class="dropdown-menu">
-            <li><%= link_to 'Login', new_patients_session_path, class: "dropdown-item" %></li>
-            <li><%= link_to 'Sign Up', new_patients_registration_path, class: "dropdown-item" %></li>
-          </ul>
+  <div class="navbar-nav">
+    <% if session[:patient_id] %>
+      <%= render partial: 'layouts/nav_patient' %>
+    <% elsif session[:doctor_id] %>
+      <%= render partial: 'layouts/nav_doctor' %>
+    <% else %>
+      <ul class="nav-item dropdown">
+        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+          Patients
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to 'Login', new_patients_session_path %></li>
+          <li><%= link_to 'Sign Up', new_patients_registration_path %></li>
         </ul>
-        <ul class="nav-item dropdown">
-          <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-            Doctors
-          </a>
-          <ul class="dropdown-menu">
-            <li><%= link_to 'Login', new_doctors_session_path, class: "dropdown-item" %></li>
-            <li><%= link_to 'Sign Up', new_doctors_registration_path, class: "dropdown-item" %></li>
-          </ul>
+      </ul>
+      <ul class="nav-item dropdown">
+        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+          Doctors
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to 'Login', new_doctors_session_path %></li>
+          <li><%= link_to 'Sign Up', new_doctors_registration_path %></li>
         </ul>
-      <% end %>
-    </div>
+      </ul>
+    <% end %>
   </div>
 </nav>

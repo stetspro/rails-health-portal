@@ -18,7 +18,7 @@
         <%= appointment.patient.first_name %> <%= appointment.patient.last_name %>
       </td>
       <td>
-        <%= link_to "Create Diagnosis", new_patient_diagnosis_path(patient_id: appointment.patient.id, appointment_id: appointment.id), class: "btn btn-primary" %>
+        <%= link_to "Create Diagnosis", new_patient_diagnosis_path(patient_id: appointment.patient.id, appointment_id: appointment.id), class: "button-17" %>
       </td>
     </tr>
   <% end %>

@@ -24,3 +24,18 @@
     color: #a94442; 
   }
 }
+.patient-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1em; // Adjust this as necessary to create space between these links and the User dropdown
+  
+  .patient-link {
+    color: #fff;
+    text-decoration: none;
+
+    &:visited {
+      color: #fff;
+    }
+  }
+}

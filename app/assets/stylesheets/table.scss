@@ -5,9 +5,9 @@
 
   th, td {
     padding: 10px;
-    text-align: center; // Center text
+    text-align: center; 
     border: 0;
-    box-shadow: 0 0 0 1px black; // border effect with box-shadow
+    box-shadow: 0 0 0 1px black; 
   }
 
   thead tr:first-child th:first-child {
@@ -43,28 +43,21 @@
   }
 
   th {
-    background-color: #B71C1C; // Red background color for the header
-    color: #fff; // White text color for the header
+    background-color: #B71C1C;
+    color: #fff; 
   }
 
   tbody tr:nth-child(even) {
-    background-color: hsl(0, 0%, 95%); // Gray background color for every other row
+    background-color: hsl(0, 0%, 95%); 
   }
 
   tbody tr:hover {
-    background-color: hsl(0, 0%, 87%); // Darker gray background color when hovering over a row
+    background-color: hsl(0, 0%, 87%); 
   }
 
-  tbody td {
-    // Actions column style, assuming there is an 'actions' class on the Actions column td
-    &.actions {
-      display: flex;
-      justify-content: space-around; // Spread out the action buttons if there are multiple
-    }
-  }
   .highlighted-row {
     background-color: hsl(0, 43%, 91%);
-    color: #a94442; 
+    color: hsl(1, 44%, 46%); 
 
     &:nth-child(even) {
       background-color: hsl(0, 43%, 86%);
@@ -79,7 +72,12 @@
   }
   
   .current-time-row {
-    background-color: #e8f2de;
-    color: #63a942;
+    background-color: hsl(64, 43%, 91%);
+    color: hsl(64, 34%, 59%);
+
+    &:hover {
+      background-color: hsl(64, 43%, 79%);
+      color: hsl(64, 34%, 59%);
+    }
   }
 }

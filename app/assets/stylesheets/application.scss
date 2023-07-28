@@ -20,3 +20,18 @@
 @import 'table';
 @import 'jsCalendar';
 @import 'button';
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1;
+  margin: 20px;
+}
+footer {
+  background: #f8f9fa;
+  padding: 20px;
+}
