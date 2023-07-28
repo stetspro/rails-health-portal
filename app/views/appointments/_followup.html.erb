@@ -1,8 +1,11 @@
+<h2>Follow-Up Appointment</h2>
+
 <%= form_for([@patient, @appointment], url: finalize_patient_appointments_path(@patient)) do |f| %>
   <table>
     <thead>
       <tr>
         <th>Recommended Doctor</th>
+        <th>Diagnosis</th>
         <th>Recommended appointment date</th>
         <th>Choose a time for your appointment:</th>
       </tr>
@@ -12,13 +15,15 @@
         <td><%= @suggested_appointment.doctor.full_name %></td>
         <%= f.hidden_field :doctor_id, value: @suggested_appointment.doctor.id %>
 
+        <td><%= @suggested_appointment.patient_diagnosis.diagnosis.name %></td>
+        
         <td><%= @suggested_appointment.date.strftime("%m-%d-%Y") %></td>
         <%= f.hidden_field :appointment_date, value: @suggested_appointment.date %>
-
+        
         <td><%= f.select :appointment_time, options_for_select(@available_times.map { |t| [t.to_s + ":00", t] }), {}, prompt: "Select a time" %></td>
       </tr>
       <tr>
-        <td colspan="3">
+        <td colspan="4">
           <%= f.submit "Create Appointment" %>
         </td>
       </tr>

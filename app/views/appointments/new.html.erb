@@ -1,6 +1,9 @@
 <% if @suggested_appointment.present? %>
   <%= render 'followup', suggested_appointment: @suggested_appointment, available_times: @available_times %>
 <% end %>
+
+<h2>Take a New Appointment</h2>
+
 <%= form_for([@patient, @appointment]) do |f| %>
   <%= f.label :doctor_id, "Choose a doctor:" %>
   <%= f.collection_select(:doctor_id, @doctors, :id, :full_name, prompt: "Select a doctor") %>
