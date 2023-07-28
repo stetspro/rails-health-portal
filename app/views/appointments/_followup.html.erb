@@ -7,6 +7,7 @@
         <th>Diagnosis</th>
         <th>Recommended appointment date</th>
         <th>Choose a time for your appointment:</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -20,12 +21,9 @@
         <%= f.hidden_field :appointment_date, value: @suggested_appointment.date %>
         
         <td><%= f.select :appointment_time, options_for_select(@available_times.map { |t| [t.to_s + ":00", t] }), {}, prompt: "Select a time" %></td>
-      </tr>
-      <tr>
-        <td colspan="4">
-          <%= f.submit "Create Appointment" %>
-        </td>
+        <td><%= f.submit "Confirm Appointment", class: "button-17" %></td>
       </tr>
     </tbody>
   </table>
+ 
 <% end %>
