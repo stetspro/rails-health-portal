@@ -4,7 +4,7 @@
   <%= f.label :appointment_time, "Choose a time for your appointment:" %>
   <%= f.select :appointment_time, options_for_select(@available_times.map { |t| [t.to_s + ":00", t] }), {}, prompt: "Select a time" %>
   
-  <%= f.submit "Create Appointment" %>
+  <%= f.submit "Create Appointment", class: "button-17" %>
 <% end %>
 
 <% if @appointment %>

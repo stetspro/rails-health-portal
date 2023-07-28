@@ -48,11 +48,11 @@
   }
 
   tbody tr:nth-child(even) {
-    background-color: #f2f2f2; // Gray background color for every other row
+    background-color: hsl(0, 0%, 95%); // Gray background color for every other row
   }
 
   tbody tr:hover {
-    background-color: #ddd; // Darker gray background color when hovering over a row
+    background-color: hsl(0, 0%, 87%); // Darker gray background color when hovering over a row
   }
 
   tbody td {
@@ -63,9 +63,21 @@
     }
   }
   .highlighted-row {
-    background-color: #f2dede;
+    background-color: hsl(0, 43%, 91%);
     color: #a94442; 
+
+    &:nth-child(even) {
+      background-color: hsl(0, 43%, 86%);
+      color: #a94442;
+    }
+    &:hover {
+      background-color: hsl(0, 43%, 79%);
+      color: #a94442;
+    }
+  
+   
   }
+  
   .current-time-row {
     background-color: #e8f2de;
     color: #63a942;
