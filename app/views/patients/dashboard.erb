@@ -13,7 +13,7 @@
         <tbody>
           <% if @appointments.present? %>
             <% @appointments.each do |appointment| %>
-              <tr class="<%= 'past-date' if appointment.appointment_date < Date.today %>">
+              <tr class="<%= 'highlighted-row' if appointment.appointment_date < Date.today %>">
                 <td><%= appointment.doctor.full_name %></td>
                 <td><%= appointment.appointment_date.strftime("%m-%d-%Y") %></td>
                 <td><%= appointment.appointment_time.strftime("%H:%M") %></td>
@@ -41,7 +41,7 @@
         <tbody>
           <% if @diagnoses.present? %>
             <% @diagnoses.each do |diagnosis| %>
-              <tr class="<%= 'not-chronic' unless diagnosis.is_chronic %>">
+              <tr class="<%= 'highlighted-row' unless diagnosis.is_chronic %>">
                 <td><%= diagnosis.name %></td>
                 <td><%= diagnosis.complaint %></td>
                 <td><%= diagnosis.created_at.strftime("%m-%d-%Y") %></td>
@@ -72,7 +72,7 @@
         <tbody>
           <% if @patient_medications.present? %>
             <% @patient_medications.each do |patient_medication| %>
-              <tr class="<%= 'expired-medication' if patient_medication.expiration_date < Date.today %>">
+              <tr class="<%= 'highlighted-row' if patient_medication.expiration_date < Date.today %>">
                 <td><%= patient_medication.medication.brand_name %></td>
                 <td><%= patient_medication.medication.frequency %></td>
                 <td><%= patient_medication.medication.delivery %></td>
