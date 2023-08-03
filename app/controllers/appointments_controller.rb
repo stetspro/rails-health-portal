@@ -1,7 +1,6 @@
 class AppointmentsController < ApplicationController
    # Ensure the patient is logged in for all actions in this controller
   before_action :logged_in_patient
-  before_action :set_patient, only: [:new, :create, :choose_time]
 
   # Prepare for creating a new appointment
   def new
@@ -106,11 +105,6 @@ class AppointmentsController < ApplicationController
       flash[:danger] = "You need to log in to view appointments"
       redirect_to patients_sessions_path
     end
-  end
-
-   # Fetch the current logged-in patient
-   def set_patient  
-    @patient = current_patient
   end
 
   # Define the parameters allowed for creating an appointment

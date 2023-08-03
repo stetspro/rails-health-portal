@@ -1,17 +1,17 @@
-<h2>Log in</h2>
+<h2>Patient Log In</h2>
 
 <%= form_for :session, url: patients_sessions_path do |f| %>
   <div class="form-group">
-    <%= f.label :email %>
+    <%= f.label :email, class: 'form-label' %>
     <%= f.email_field :email, class: 'form-control' %>
   </div>
 
   <div class="form-group">
-    <%= f.label :password %>
+    <%= f.label :password, class: 'form-label' %>
     <%= f.password_field :password, class: 'form-control' %>
   </div>
 
   <div class="form-group">
-    <%= f.submit "Log in", class: 'btn btn-primary' %>
+    <%= f.submit "Log in", class: 'button-17' %>
   </div>
 <% end %>

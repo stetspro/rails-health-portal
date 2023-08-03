@@ -1,13 +1,16 @@
 <% if @suggested_appointment.present? %>
   <%= render 'followup', suggested_appointment: @suggested_appointment, available_times: @available_times %>
 <% end %>
+
+<h2>Book New Appointment Date</h2>
+
 <%= form_for([@patient, @appointment]) do |f| %>
   <%= f.label :doctor_id, "Choose a doctor:" %>
   <%= f.collection_select(:doctor_id, @doctors, :id, :full_name, prompt: "Select a doctor") %>
 
   <%= f.label :appointment_date, "Choose a date for your appointment:" %>
   <%= f.date_field :appointment_date, id: "appointment-date", :readonly => true%>
-  <div id="my-calendar"></div>
+  <div  id="my-calendar" ></div>
   
-  <%= f.submit "Next" %>
+  <%= f.submit "Proceed to select appointment time",class: "button-17" %>
 <% end %>

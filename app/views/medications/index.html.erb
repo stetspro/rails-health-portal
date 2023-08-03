@@ -1,26 +1,25 @@
-<h1><%= @patient.first_name %>'s Medications</h1>
-
-<table>
+<caption><h2><%= @patient.first_name %>'s Medication</h2></caption>
+<table class="dashboard-table">
   <thead>
     <tr>
       <th>Brand Name</th>
+      <th>Generic Name</th>
       <th>Dosage</th>
       <th>Frequency</th>
       <th>Delivery</th>
-      <th>Pharmacological Name</th>
       <th>Diagnosis</th>
-      <th>Expiration Date</th>
+      <th>Prescription Valid Until</th>
     </tr>
   </thead>
 
   <tbody>
     <% @patient_medications.each do |patient_medication| %>
-      <tr class="<%= 'expired-medication' if patient_medication.expiration_date < Date.today %>">
+      <tr class="<%= 'highlighted-row' if patient_medication.expiration_date < Date.today %>">
         <td><%= patient_medication.medication.brand_name %></td>
+        <td><%= patient_medication.medication.pharmacological_name %></td>
         <td><%= patient_medication.medication.dosage %></td>
         <td><%= patient_medication.medication.frequency %></td>
         <td><%= patient_medication.medication.delivery %></td>
-        <td><%= patient_medication.medication.pharmacological_name %></td>
         <td><%= patient_medication.patient_diagnosis.diagnosis.name %></td>
         <td><%= patient_medication.expiration_date.strftime("%m-%d-%Y") %></td>
       </tr>

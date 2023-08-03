@@ -1,7 +1,41 @@
 // Place all the styles related to the Patients controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-.past-date {
-  background-color: #f2dede; /* a light red background */
-  color: #a94442; /* a dark red text */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+
+  &-row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &-item {
+    flex: 1;
+    margin: 10px;
+
+    table {
+      width: 100%;
+    }
+  }
+
+  .highlighted-row {
+    background-color: #f2dede;
+    color: #a94442; 
+  }
+}
+.patient-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1em; // Adjust this as necessary to create space between these links and the User dropdown
+  
+  .patient-link {
+    color: #fff;
+    text-decoration: none;
+
+    &:visited {
+      color: #fff;
+    }
+  }
 }

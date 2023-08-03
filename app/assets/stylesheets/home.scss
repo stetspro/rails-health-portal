@@ -1,3 +1,51 @@
 // Place all the styles related to the Home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+#home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 20px;
+
+  h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+  }
+
+  .content {
+      display: flex;
+      flex-direction: row;
+      align-items: start;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1200px;
+
+      .image-container {
+          flex: 1;
+          margin-right: 20px;
+
+          img {
+              max-width: 100%;
+              height: auto;
+          }
+      }
+
+      .description-container {
+          flex: 2;
+          margin-left: 20px;
+
+          h2 {
+              font-size: 2em;
+              margin-bottom: 15px;
+          }
+
+          p {
+              font-size: 1.2em;
+              line-height: 1.5;
+              margin-bottom: 15px;
+          }
+      }
+  }
+}

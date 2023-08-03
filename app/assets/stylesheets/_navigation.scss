@@ -1,91 +1,63 @@
 .navbar {
-  background-color: #CB2525;
+  background-color: #B71C1C;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  width: 100%;
 
   .navbar-brand {
     color: #fff;
     font-size: 2em;
+    font-family: 'Russo One', sans-serif;
   }
 
   .navbar-nav {
-    float: right;
     display: flex;
-    justify-content: center;
     align-items: center;
-  }
-
-  // Added style for patient-links div and its elements
-  .patient-links {
-    display: flex;
     justify-content: center;
-    align-items: center;
-    margin-right: 1em; // Adjust this as necessary to create space between these links and the User dropdown
-    
-    .patient-link {
-      color: #fff;
-      text-decoration: none;
+    padding-right: 50px;
 
-      &:visited {
+    .nav-item {
+      position:relative;
+
+      .dropdown-toggle {
         color: #fff;
+        text-decoration: none;
+      }
+
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        min-width: 160px;
+        background-color: #fff;
+        border: none;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0;  
+        margin: 0;
+
+        li {
+          list-style: none;
+          padding: 10px 20px;
+          text-align: center;
+          
+          &:hover {
+            background-color: #cccccc; 
+          }
+          
+          a {
+            color: black;
+            text-decoration: none;
+          }
+        }
+      }
+
+      &:hover .dropdown-menu {
+        display: block;
       }
     }
   }
-
-  .nav-item.dropdown {
-    list-style-type: none;
-    margin-right: 1em;
-    display: inline-block;
-
-    .dropdown-toggle {
-      color: #fff;
-      text-decoration: none;
-
-      &:visited {
-        color: #fff;
-      }
-    }
-
-    .dropdown-menu {
-      background-color: #fff;
-      border: 1px solid black;
-
-      .dropdown-item {
-        color: black;
-        list-style-type: none;
-        border-bottom: 1px solid black;
-
-        &:hover {
-          background-color: rgb(134, 134, 134)737;
-        }
-
-        &:visited {
-          color: black;
-        }
-
-        &:last-child {
-          border-bottom: none;
-        }
-      }
-    }
-  }
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-
-  ul {
-    display: none;
-    position: absolute;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-
-  &:hover ul {
-    display: block;
-  }
-}
-
-.main-content {
-  margin-top: 2em; // adjust this as necessary
 }

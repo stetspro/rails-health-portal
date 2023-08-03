@@ -1,25 +1,30 @@
-<h1>M.D. <%= @doctor.full_name %>'s Daily Patients</h1>
-
-<table>
+<caption><h2>M.D. <%= @doctor.full_name %>'s Daily Patients</h2></caption>
+<table class="dashboard-table">
   <thead>
     <tr>
       <th>Appointment Time</th>
-      <th>Patient Name</th>
+      <th>Patient Name (First Last)</th>
       <th>Actions</th>
     </tr>
   </thead>
-
   <tbody>
+  <% if @appointments.present? %>
   <% @appointments.each do |appointment| %>
     <tr>
       <td>
-        <%= appointment.appointment_time.strftime("%H:%M") %> - <%= (appointment.appointment_time + 30.minutes).strftime("%H:%M") %>
+        <%= appointment.appointment_time.strftime("%H:%M") %> - <%= (appointment.appointment_time + 59.minutes).strftime("%H:%M") %>
       </td>
-      <td><%= appointment.patient.first_name %> <%= appointment.patient.last_name %></td>
       <td>
-      <%= link_to "Create Diagnosis", new_patient_diagnosis_path(patient_id: appointment.patient.id, appointment_id: appointment.id), class: "btn btn-primary" %>
-
+        <%= appointment.patient.first_name %> <%= appointment.patient.last_name %>
       </td>
+      <td>
+        <%= link_to "Enter Medical Progress Note", new_patient_diagnosis_path(patient_id: appointment.patient.id, appointment_id: appointment.id), class: "button-17" %>
+      </td>
+    </tr>
+  <% end %>
+  <% else %>
+    <tr>
+      <td colspan="3">No Patients Found</td>
     </tr>
   <% end %>
   </tbody>

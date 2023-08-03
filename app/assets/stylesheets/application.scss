@@ -16,4 +16,28 @@
  
 
 @import '_navigation';
-@import 'patients'
+@import 'patients';
+@import 'table';
+@import 'jsCalendar';
+@import 'button';
+@import 'patients/sessions.scss';
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Kanit', sans-serif;
+  background-image: asset-url('gplay.png');
+}
+
+.main-content {
+  flex-grow: 1;
+  margin: 20px;
+}
+footer {
+  background: #f8f9fa;
+  padding: 20px;
+}
+h2 {
+  color: #292F36;
+}

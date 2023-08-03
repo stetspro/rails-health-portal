@@ -1,3 +1,21 @@
 // Place all the styles related to the Patients/Sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.userform-table {
+  width: 100%;
+
+  .userform-label {
+    text-align: left;
+    vertical-align: middle;  // add vertical centering here
+  }
+
+  .userform-input {
+    text-align: center;
+    vertical-align: middle;  // add vertical centering here
+  }
+
+  .userform-submit {
+    text-align: center;
+    vertical-align: middle;  // add vertical centering here
+  }
+}

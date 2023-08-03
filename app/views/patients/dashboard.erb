@@ -1,54 +1,91 @@
-<h1><%= @patient.first_name %>'s Dashboard</h1>
-<div>
-  <table>
-  <caption><h2>Appointments</h2></caption>
-  <thead>
-    <tr>
-      <th>Doctor</th>
-      <th>Appointment Date</th>
-      <th>Appointment Time</th>
-    </tr>
-  </thead>
+<div class="dashboard">
+  <div class="dashboard-row">
+    <div class="dashboard-item">
+      <table class="dashboard-table">
+        <caption><h2>Appointments</h2></caption>
+        <thead>
+          <tr>
+            <th>Doctor</th>
+            <th>Appointment Date</th>
+            <th>Appointment Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @appointments.present? %>
+            <% @appointments.each do |appointment| %>
+              <tr class="<%= 'highlighted-row' if appointment.appointment_date < Date.today %>">
+                <td><%= appointment.doctor.full_name %></td>
+                <td><%= appointment.appointment_date.strftime("%m-%d-%Y") %></td>
+                <td><%= appointment.appointment_time.strftime("%H:%M") %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="3">No Appointments Found</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
-  <tbody>
-    <% if @appointments.present? %>
-      <% @appointments.each do |appointment| %>
-        <tr class="<%= 'past-date' if appointment.appointment_date < Date.today %>">
-          <td><%= appointment.doctor.full_name %></td>
-          <td><%= appointment.appointment_date.strftime("%m-%d-%Y") %></td>
-          <td><%= appointment.appointment_time.strftime("%H:%M") %></td>
-        </tr>
-      <% end %>
-    <% else %>
-      <tr>
-        <td colspan="3">No Appointments Found</td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="dashboard-item">
+      <table class="dashboard-table">
+        <caption><h2>Diagnoses</h2></caption>
+        <thead>
+          <tr>
+            <th>Diagnosis</th>
+            <th>Complaint</th>
+            <th>Date Diagnosed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @diagnoses.present? %>
+            <% @diagnoses.each do |diagnosis| %>
+              <tr class="<%= 'highlighted-row' unless diagnosis.is_chronic %>">
+                <td><%= diagnosis.name %></td>
+                <td><%= diagnosis.complaint %></td>
+                <td><%= diagnosis.created_at.strftime("%m-%d-%Y") %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="3">No Diagnoses Found</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-</div>
-<div>
-  <table>
-    <caption><h2>Medications</h2></caption>
-    <thead>
-      <tr>
-        <th>Brand Name</th>
-        <th>Frequency</th>
-        <th>Delivery</th>
-        <th>Expiration Date</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @patient_medications.each do |patient_medication| %>
-        <tr class="<%= 'past-date' if patient_medication.expiration_date < Date.today %>">
-          <td><%= patient_medication.medication.brand_name %></td>
-          <td><%= patient_medication.medication.frequency %></td>
-          <td><%= patient_medication.medication.delivery %></td>
-          <td><%= patient_medication.expiration_date.strftime("%m-%d-%Y") %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="dashboard-row">
+    <div class="dashboard-item">
+    <table class="dashboard-table">
+        <caption><h2>Medication</h2></caption>
+        <thead>
+          <tr>
+            <th>Brand Name</th>
+            <th>Frequency</th>
+            <th>Delivery</th>
+            <th>Prescription Valid Until</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @patient_medications.present? %>
+            <% @patient_medications.each do |patient_medication| %>
+              <tr class="<%= 'highlighted-row' if patient_medication.expiration_date < Date.today %>">
+                <td><%= patient_medication.medication.brand_name %></td>
+                <td><%= patient_medication.medication.frequency %></td>
+                <td><%= patient_medication.medication.delivery %></td>
+                <td><%= patient_medication.expiration_date.strftime("%m-%d-%Y") %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="4">No Medications Found</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

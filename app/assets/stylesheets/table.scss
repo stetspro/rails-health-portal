@@ -1,0 +1,83 @@
+.dashboard-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 1px;
+
+  th, td {
+    padding: 10px;
+    text-align: center; 
+    border: 0;
+    box-shadow: 0 0 0 1px black; 
+  }
+
+  thead tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+  }
+
+  thead tr:last-child th:first-child {
+    border-bottom-left-radius: 10px;
+  }
+
+  thead tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+  }
+
+  thead tr:last-child th:last-child {
+    border-bottom-right-radius: 10px;
+  }
+
+  tbody tr:first-child td:first-child {
+    border-top-left-radius: 10px;
+  }
+
+  tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+  }
+
+  tbody tr:first-child td:last-child {
+    border-top-right-radius: 10px;
+  }
+
+  tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+  }
+
+  th {
+    background-color: #B71C1C;
+    color: #fff; 
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: hsl(0, 0%, 95%); 
+  }
+
+  tbody tr:hover {
+    background-color: #ADB6C4; 
+  }
+
+  .highlighted-row {
+    background-color: hsl(0, 43%, 91%);
+    color: hsl(1, 44%, 46%); 
+
+    &:nth-child(even) {
+      background-color: hsl(0, 43%, 86%);
+      color: #a94442;
+    }
+    &:hover {
+      background-color: hsl(0, 43%, 79%);
+      color: #a94442;
+    }
+  
+   
+  }
+  
+  .current-time-row {
+    background-color: hsl(64, 43%, 21%);
+    color: hsl(64, 34%, 59%);
+
+    &:hover {
+      background-color: hsl(64, 43%, 79%);
+      color: hsl(64, 34%, 59%);
+    }
+  }
+}
