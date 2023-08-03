@@ -1,9 +1,20 @@
 <h1>AI Scheduler</h1>
-<p>
-  Patient: <%= @patient.first_name %> <%= @patient.last_name %><br>
-  Diagnosis: <%= @patient_diagnosis.diagnosis.name %><br>
-  AI Suggested Appointment date: <%= @suggested_date %>
-</p>
+<table class="dashboard-table">
+  <thead>
+    <tr>
+      <th>Patient</th>
+      <th>Diagnosis</th>
+      <th>AI Suggested Appointment Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @patient.first_name %> <%= @patient.last_name %></td>
+      <td><%= @patient_diagnosis.diagnosis.name %></td>
+      <td><%= @suggested_date.strftime("%m-%d-%Y") %></td>
+    </tr>
+  </tbody>
+</table>
 
 <%= form_for @ai_scheduler, url: confirm_schedule_patient_diagnosis_path(@patient_diagnosis), method: :post do |f| %>
   <div class="field">
