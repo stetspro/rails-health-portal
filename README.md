@@ -50,7 +50,7 @@ System dependencies:
 - Node.js
 - Yarn
 
-Before running the project, create a ```shell .env ``` file in the project's root directory based on the `.env.example` file. Fill in your OpenAI access token and organization ID:
+Before running the project, create a `.env` file in the project's root directory based on the `.env.example` file. Fill in your OpenAI access token and organization ID:
 
 OPENAI_ACCESS_TOKEN=
 OPENAI_ORGANIZATION_ID=
@@ -97,7 +97,7 @@ Finally, start the Rails server:
 $ rails s -b 0.0.0.0
 ```
 
-Then open your web browser and navigate to ```shell http://localhost:3000 ``` to see the app in action.
+Then open your web browser and navigate to http://localhost:3000 to see the app in action.
 
 ## Configuration
 
@@ -105,11 +105,11 @@ Configuration settings can be found in the config folder of the Rails applicatio
 
 ## Database creation
 
-This application uses PostgreSQL for data storage. After setting up the application, you can create the database with the ```shell rails db:create ``` command, then migrate the database schema with ```shell rails db:migrate ```.
+This application uses PostgreSQL for data storage. After setting up the application, you can create the database with the `rails db:create` command, then migrate the database schema with `rails db:migrate`.
 
 ## Database initialization
 
-No additional steps needed for database initialization as ```shell rails db:migrate ``` takes care of it.
+No additional steps needed for database initialization as `rails db:migrate` takes care of it.
 
 ## Deployment instructions
 
