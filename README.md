@@ -56,15 +56,45 @@ OPENAI_ACCESS_TOKEN=
 OPENAI_ORGANIZATION_ID=
 
 
+## Setup
+
 To run this project, install it locally using bundle and yarn:
+
+First, navigate to the project directory:
 
 ```shell
 $ cd ../canpulse
+
+Next, install the necessary Ruby gems:
+
+shell
+
 $ bundle install
+
+Then, install the necessary JavaScript packages:
+
+shell
+
 $ yarn install
+
+Now, create the PostgreSQL database:
+
+shell
+
 $ rails db:create
+
+After creating the database, migrate the database schema:
+
+shell
+
 $ rails db:migrate
+
+Finally, start the Rails server:
+
+shell
+
 $ rails s -b 0.0.0.0
+
 
 Then open your web browser and navigate to http://localhost:3000 to see the app in action.
 
